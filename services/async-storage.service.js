@@ -1,4 +1,4 @@
-export const storageService = {
+export const asyncStorageService = {
     query,
     get,
     post,
@@ -62,3 +62,4 @@ function _makeId(length = 5) {
     }
     return text
 }
+

@@ -5,9 +5,7 @@ export const utilService = {
     getRandomColor,
     padNum,
     getDayName,
-    getMonthName,
-    loadFromStorage,
-    saveToStorage
+    getMonthName
 }
 
 function makeId(length = 6) {
@@ -63,11 +61,3 @@ function getMonthName(date) {
     return monthNames[date.getMonth()]
 }
 
-function saveToStorage(key, val) {
-    localStorage.setItem(key, JSON.stringify(val))
-}
-
-function loadFromStorage(key) {
-    var val = localStorage.getItem(key)
-    return JSON.parse(val)
-}
