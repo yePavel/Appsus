@@ -1,5 +1,5 @@
 import { storageService } from "../../../services/storage.service.js"
-import { mailService } from "../../mail/services/emailService.js"
+import { eMailService } from "../../mail/services/eMailService.js"
 
 const { useEffect, useState } = React
 const { Link, useSearchParams, useParams } = ReactRouterDOM
@@ -10,7 +10,7 @@ export function EmailDetails() {
 
     useEffect(() => {
         if (!params.emailId) return
-        mailService.get(params.emailId)
+        eMailService.get(params.emailId)
             .then(email => setEmail(email))
     })
 

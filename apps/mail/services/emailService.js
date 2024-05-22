@@ -10,13 +10,14 @@ const loggedinUser = {
     fullname: 'Mahatma Appsus'
 }
 
-export const mailService = {
+export const eMailService = {
     query,
     get,
+    save,
     getEmailFromSearchParams
 }
 
-window.ms = mailService
+window.ms = eMailService
 
 
 function query(filterBy = {}) {
@@ -29,7 +30,7 @@ function query(filterBy = {}) {
             if (filterBy.sentAt) {
                 emails = emails.sort()
             }
-            console.log('emailsFromQuery:', emails)
+
             return emails
         })
 }
@@ -40,7 +41,16 @@ function get(mailId) {
             // mail = _setNextPrevMailId(mail)
             return mail
         })
-        .catch(error => console.log('error:', error))
+
+}
+
+function save(email) {
+    if (email.id) {
+        return asyncStorageService.put(EMAIL_KEY, email)
+    }
+    else {
+        return asyncStorageService.post(EMAIL_KEY, email)
+    }
 }
 
 function getEmailFromSearchParams(searchParams) {

@@ -1,16 +1,20 @@
 const { useState, useEffect } = React
 const { Link } = ReactRouterDOM
 
-import { mailService } from '../services/emailService.js'
+import { eMailService } from '../services/eMailService.js'
 import { MailList } from '../cmps/MailList.jsx'
 
 export function MailIndex() {
     const [emails, setEmails] = useState([])
 
     useEffect(() => {
-        mailService.query()
+        eMailService.query()
             .then(emails => setEmails(emails))
     }, [])
+
+    function onSaveEmails() {
+
+    }
 
     return <div className='emails-container'>
         <button className='compose'><img className='icon' src="/assets/img/mail-icons/pencil.png" alt="" />Compose</button>
