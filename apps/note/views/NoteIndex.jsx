@@ -1,6 +1,23 @@
+const { useState, useEffect } = React
 
-import { check } from './../services/note.service.js'
+import { noteService } from './../services/note.service.js'
+
+import { NoteList } from './../cmps/NoteList.jsx'
+import { KeepHeader } from './../cmps/KeepHeader.jsx'
+
+
 
 export function NoteIndex() {
-    return <div>{check.query()}</div>
+    const [notes, setNotes] = useState([])
+
+    useEffect(() => {
+        noteService.query().then(notes => {
+            setNotes(notes)
+        })
+    }, [])
+
+return <section className="note-index">
+    <KeepHeader />
+    <NoteList notes={notes} />
+</section>
 }

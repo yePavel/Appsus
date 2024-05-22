@@ -6,18 +6,25 @@ import { asyncStorageService } from '../../../services/async-storage.service.js'
 const NOTE_KEY = 'noteDB'
 _createNotes()
 
-export const check = {
+export const noteService = {
     query,
     get,
     remove,
     save,
     getDefaultFilter,
     getFilterFromSearchParams,
+
 }
 
 function query() {
+    return asyncStorageService.query(NOTE_KEY)
+        .then(notes => {
 
+            return notes
+        })
 }
+
+
 
 function get(noteId) {
     return asyncStorageService.get(NOTE_KEY, noteId)
@@ -48,8 +55,6 @@ function getFilterFromSearchParams(searchParams) {
         txt: searchParams.get('txt') || '',
     }
 }
-
-
 
 //privet function 
 
