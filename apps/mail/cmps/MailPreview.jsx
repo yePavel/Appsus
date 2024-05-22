@@ -6,7 +6,7 @@ import { eMailService } from '../services/eMailService.js'
 export function MailPreview({ mail }) {
     const [currMail, setCurrMail] = useState(mail)
 
-    function onSetIsRead(mailId) {
+    function onSetIsRead() {
         setCurrMail((prevMail) => {
             const currIsRead = prevMail.isRead
             const updatedMail = { ...currMail, isRead: !currIsRead }
@@ -17,7 +17,7 @@ export function MailPreview({ mail }) {
     return (
         <Link to={`/mail/${mail.id}`}>
             <div className={`mail-preview ${currMail.isRead ? 'isRead' : ''}`}
-                onClick={() => onSetIsRead(mail.id)}>
+                onClick={() => onSetIsRead()}>
                 ⭐
                 <p>{mail.from}</p>
                 <p>{mail.subject}</p>

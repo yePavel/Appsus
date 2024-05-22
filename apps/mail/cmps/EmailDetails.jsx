@@ -19,10 +19,22 @@ export function EmailDetails() {
         <input type="text" className='search-input' />
 
         <aside className='side-menu'>
-            <span><img className='icon' src="/assets/img/mail-icons/inbox.png" alt="" />Inbox </span>
-            <span><img className='icon' src="/assets/img/mail-icons/star.png" alt="" />Starred </span>
-            <span><img className='icon' src="/assets/img/mail-icons/sent.png" alt="" />Sent </span>
-            <span><img className='icon' src="/assets/img/mail-icons/trash.png" alt="" />Trash </span>
+            <p>
+                <img className='icon' src="/assets/img/mail-icons/inbox.png" alt="" />
+                Inbox
+            </p>
+            <p>
+                <img className='icon' src="/assets/img/mail-icons/star.png" alt="" />
+                Starred
+            </p>
+            <p>
+                <img className='icon' src="/assets/img/mail-icons/sent.png" alt="" />
+                Sent
+            </p>
+            <p>
+                <img className='icon' src="/assets/img/mail-icons/trash.png" alt="" />
+                Trash
+            </p>
         </aside>
 
         <div className='email-details'>

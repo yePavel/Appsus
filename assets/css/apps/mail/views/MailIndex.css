@@ -31,7 +31,7 @@
     flex-direction: column;
 }
 
-.side-menu span {
+.side-menu p {
     display: flex;
     margin-bottom: 20px;
     padding: 10px;
@@ -39,15 +39,19 @@
     border-bottom-right-radius: 24px;
 }
 
-.side-menu span:hover {
+.side-menu p:hover {
     cursor: pointer;
     padding: 10px;
     background: var(--mail-label-hover);
 }
 
-.side-menu span .icon {
+.side-menu p .icon {
     width: 15px;
     margin-inline-end: 10px;
+}
+
+.side-menu .unread-counter {
+    margin-inline-start: auto;
 }
 
 .search-input {
