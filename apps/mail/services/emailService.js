@@ -71,7 +71,8 @@ function _setNextPrevMailId(mail) {
 }
 
 function _createEmailsList() {
-    let emailsList = storageService.loadFromStorage(EMAIL_KEY)
+    let emailsList = storageService.loadFromStorage(EMAIL_KEY) || []
+    console.log('emailsList:', emailsList)
     if (!emailsList || !emailsList.length) {
         for (let i = 0; i < 10; i++) {
             const email = {
