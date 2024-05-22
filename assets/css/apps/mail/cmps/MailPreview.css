@@ -1,0 +1,10 @@
+.mail-preview {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    gap: 10px;
+}
+
+.mail-preview span {
+    margin-inline-end: 30px;
+}

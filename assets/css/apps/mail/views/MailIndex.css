@@ -1,1 +1,63 @@
- /* mail index  */
+.emails-container {
+    display: grid;
+    grid-template-columns: minmax(150px, 100px) minmax(500px, 1fr);
+    padding: 10px;
+    gap: 10px;
+    background-color: var(--mail-bg-color);
+}
+
+
+.compose {
+    display: flex;
+    background-color: var(--mail-compose-bg);
+    border-radius: 24px;
+    width: 120px;
+    padding: 10px;
+    border: none;
+    gap: 5px;
+}
+
+.compose .icon {
+    width: 20px;
+}
+
+.compose:hover {
+    box-shadow: 1px 2px 0 rgba(60, 64, 67, .3),
+        0 1px 3px 1px rgba(60, 64, 67, .15);
+}
+
+.side-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.side-menu span {
+    display: flex;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-top-right-radius: 24px;
+    border-bottom-right-radius: 24px;
+}
+
+.side-menu span:hover {
+    padding: 10px;
+    background: var(--mail-label-hover);
+}
+
+.side-menu span .icon {
+    width: 15px;
+    margin-inline-end: 10px;
+}
+
+.search-input {
+    width: 200px;
+    border: none;
+    background: var(--mail-search-bg);
+    border-radius: 24px;
+
+    background-image: url('/assets/img/mail-icons/search.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 25px;
+    padding: 12px 20px 12px 40px;
+}
