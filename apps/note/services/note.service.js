@@ -25,7 +25,6 @@ function query() {
 }
 
 
-
 function get(noteId) {
     return asyncStorageService.get(NOTE_KEY, noteId)
         .then(note => {
@@ -63,8 +62,8 @@ function _createNotes() {
 
     if (notes && notes.length) return
 
-    notes = [
-        {
+    for (let i = 0; i < 10; i++) {
+        const note =     {
             id: 'n101',
             createdAt: 1112222,
             type: 'NoteTxt',
@@ -75,13 +74,12 @@ function _createNotes() {
             info: {
                 txt: 'Fullstack Me Baby!'
             }
-        },
-
-    ]
+        }
+        notes.push(note)
+    }
 
     storageService.saveToStorage(NOTE_KEY, notes)
 }
-
 
 
 function _setNextPrevNoteId(note) {
