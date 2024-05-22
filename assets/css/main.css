@@ -13,12 +13,11 @@
 @import './views/home.css';
 
 /* @import './apps/note/views/NoteIndex.css'; */
+@import './apps/note/cmps/KeepHeader.css';
 
 @import './apps/mail/views/MailIndex.css';
 
 /* Cmps */
-
-@import './cmps/UserMsg.css';
 @import './cmps/AppHeader.css';
 
 /* emailCmps */
