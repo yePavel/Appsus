@@ -17,6 +17,6 @@
     border-bottom-color: rgb(204, 204, 204);
 }
 
-.readed {
+.isRead {
     background: var(--mail-readed);
 }
