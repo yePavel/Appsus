@@ -5,7 +5,9 @@ export const utilService = {
     getRandomColor,
     padNum,
     getDayName,
-    getMonthName
+    getMonthName,
+    getRandomDate,
+    getUserEmail
 }
 
 function makeId(length = 6) {
@@ -20,11 +22,23 @@ function makeId(length = 6) {
 }
 
 function makeLorem(size = 100) {
-    var words = ['The sky', 'above', 'the port', 'was', 'the color of television', 'tuned', 'to', 'a dead channel', '.', 'All', 'this happened', 'more or less', '.', 'I', 'had', 'the story', 'bit by bit', 'from various people', 'and', 'as generally', 'happens', 'in such cases', 'each time', 'it', 'was', 'a different story', '.', 'It', 'was', 'a pleasure', 'to', 'burn']
+    var words = ['The sky', 'above', 'the port', 'was', 'the color of television', 'tuned', 'to', 'a dead channel', 'All', 'this happened', 'more or less', '.', 'I', 'had', 'the story', 'bit by bit', 'from various people', 'and', 'as generally', 'happens', 'in such cases', 'each time', 'it', 'was', 'a different story', 'It', 'was', 'a pleasure', 'to', 'burn']
     var txt = ''
     while (size > 0) {
         size--
         txt += words[Math.floor(Math.random() * words.length)] + ' '
+    }
+    return txt
+}
+function getUserEmail(size = 1) {
+    var names = ['samantha', 'robert', 'elizabeth', 'samantharobert', 'james0202', 'david1999', 'daniel_01', 'markMe', 'paul', 'thomasTomi', 'danielGG']
+    var domain = ['gmail', 'hot', 'yahoo', 'walla']
+    var txt = ''
+    while (size > 0) {
+        size--
+        txt += names[Math.floor(Math.random() * names.length)] + '@' +
+            domain[Math.floor(Math.random() * domain.length)] + '.com'
+
     }
     return txt
 }
@@ -48,7 +62,17 @@ function getRandomColor() {
     return color
 }
 
-function getDayName(date, locale) {
+function getRandomDate() {
+    let fullDate = _getFullRandomDate('2020-01-01', '2024-05-22')
+    let newDate
+    if (fullDate.getFullYear() < 2024) newDate = fullDate.getFullYear()
+    else {
+        newDate = getMonthName(fullDate) + ' ' + fullDate.getDate()
+    }
+    return newDate
+}
+
+function getDayName(date, locale = 'en-US') {
     date = new Date(date)
     return date.toLocaleDateString(locale, { weekday: 'long' })
 }
@@ -61,3 +85,11 @@ function getMonthName(date) {
     return monthNames[date.getMonth()]
 }
 
+// ~~~~~~~~~~~~~~~ LOCAL FUNC ~~~~~~~~~~~~~~~~
+
+function _getFullRandomDate(start, end) {
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    const randomTime = startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime());
+    return new Date(randomTime);
+}

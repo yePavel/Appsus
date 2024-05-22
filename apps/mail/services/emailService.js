@@ -5,6 +5,11 @@ import { storageService } from '../../../services/storage.service.js'
 const STORAGE_KEY = 'emailsDB'
 _createEmailsList()
 
+const loggedinUser = {
+    email: 'user@appsus.com',
+    fullname: 'Mahatma Appsus'
+}
+
 export const mailService = {
     query
 }
@@ -37,12 +42,12 @@ function _createEmailsList() {
     for (let i = 0; i < 10; i++) {
         const email = {
             id: utilService.makeId(),
-            subject: 'Miss you!',
+            subject: utilService.makeLorem(3),
             body: 'Would love to catch up sometimes',
             isRead: false,
-            sentAt: 1551133930594,
+            sentAt: utilService.getRandomDate(),
             removedAt: null,
-            from: 'momo@momo.com',
+            from: `${utilService.getUserEmail()}`,
             to: 'user@appsus.com'
         }
         emailsList.push(email)

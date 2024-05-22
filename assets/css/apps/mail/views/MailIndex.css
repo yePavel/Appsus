@@ -40,6 +40,7 @@
 }
 
 .side-menu span:hover {
+    cursor: pointer;
     padding: 10px;
     background: var(--mail-label-hover);
 }

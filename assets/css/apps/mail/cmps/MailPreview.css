@@ -5,6 +5,10 @@
     gap: 10px;
 }
 
-.mail-preview span {
-    margin-inline-end: 30px;
+.mail-preview span:nth-child(1) {
+    margin-inline-end: auto;
+}
+
+.mail-preview span:nth-child(2) {
+    margin-inline-end: auto;
 }

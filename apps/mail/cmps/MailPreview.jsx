@@ -5,6 +5,7 @@ export function MailPreview({ mail }) {
             <span>{mail.from}</span>
             <span>{mail.subject}</span>
             <span>{mail.sentAt}</span>
+
         </td>
     )
 }
