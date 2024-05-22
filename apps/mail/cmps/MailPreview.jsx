@@ -7,12 +7,10 @@ export function MailPreview({ mail }) {
     const [currMail, setCurrMail] = useState(mail)
 
     function onSetIsRead(mailId) {
-        console.log('mailId:', mailId)
         setCurrMail((prevMail) => {
             const currIsRead = prevMail.isRead
             const updatedMail = { ...currMail, isRead: !currIsRead }
             eMailService.save(updatedMail)
-                .then(res => console.log('res:', res))
         })
     }
 
