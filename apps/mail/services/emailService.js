@@ -2,7 +2,7 @@ import { asyncStorageService } from '../../../services/async-storage.service.js'
 import { utilService } from '../../../services/util.service.js'
 import { storageService } from '../../../services/storage.service.js'
 
-const STORAGE_KEY = 'emailsDB'
+const EMAIL_KEY = 'emailsDB'
 _createEmailsList()
 
 const loggedinUser = {
@@ -11,14 +11,16 @@ const loggedinUser = {
 }
 
 export const mailService = {
-    query
+    query,
+    get,
+    getEmailFromSearchParams
 }
 
 window.ms = mailService
 
 
 function query(filterBy = {}) {
-    return asyncStorageService.query(STORAGE_KEY)
+    return asyncStorageService.query(EMAIL_KEY)
         .then(emails => {
             if (filterBy.subject) {
                 emails = emails.sort()
@@ -32,26 +34,48 @@ function query(filterBy = {}) {
         })
 }
 
-
-
-// ~~~~~~~~~~~~~~~~~~~~~~ LOCAL FUNC ~~~~~~~~~~~~~~~~
-
-function _createEmailsList() {
-    const emailsList = []
-
-    for (let i = 0; i < 10; i++) {
-        const email = {
-            id: utilService.makeId(),
-            subject: utilService.makeLorem(3),
-            body: 'Would love to catch up sometimes',
-            isRead: false,
-            sentAt: utilService.getRandomDate(),
-            removedAt: null,
-            from: `${utilService.getUserEmail()}`,
-            to: 'user@appsus.com'
-        }
-        emailsList.push(email)
-    }
-    storageService.saveToStorage(STORAGE_KEY, emailsList)
+function get(mailId) {
+    return asyncStorageService.get(EMAIL_KEY, mailId)
+        .then(mail => {
+            // mail = _setNextPrevMailId(mail)
+            return mail
+        })
+        .catch(error => console.log('error:', error))
 }
 
+function getEmailFromSearchParams(searchParams) {
+    return searchParams.get('carId') || ''
+
+}
+// ~~~~~~~~~~~~~~~~~~~~~~ LOCAL FUNC ~~~~~~~~~~~~~~~~
+function _setNextPrevMailId(mail) {
+    return storageService.query(EMAIL_KEY)
+        .then((emails) => {
+            const mailIdx = emails.findIndex((currMail) => currMail.id === mail.id)
+            const nextMail = emails[mailIdx + 1] ? emails[mailIdx + 1] : emails[0]
+            const prevMail = emails[mailIdx - 1] ? emails[mailIdx - 1] : emails[emails.length - 1]
+            mail.nextCarId = nextMail.id
+            mail.prevCarId = prevMail.id
+            return car
+        })
+}
+
+function _createEmailsList() {
+    let emailsList = storageService.loadFromStorage(EMAIL_KEY)
+    if (!emailsList || !emailsList.length) {
+        for (let i = 0; i < 10; i++) {
+            const email = {
+                id: utilService.makeId(),
+                subject: utilService.makeLorem(3),
+                body: 'Would love to catch up sometimes',
+                isRead: false,
+                sentAt: utilService.getRandomDate(),
+                removedAt: null,
+                from: `${utilService.getUserEmail()}`,
+                to: 'user@appsus.com'
+            }
+            emailsList.push(email)
+        }
+        storageService.saveToStorage(EMAIL_KEY, emailsList)
+    }
+}

@@ -1,0 +1,18 @@
+.email-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.email-details h3 {
+    margin-block-start: 20px;
+}
+
+.email-details p {
+    margin-block-start: 5px;
+    margin-block-end: 5px;
+}
+
+.email-details p:last-child {
+    margin-block-start: 20px;
+    margin: auto;
+}
