@@ -64,7 +64,7 @@ function _createNotes() {
 
     for (let i = 0; i < 10; i++) {
         const note =     {
-            id: 'n101',
+            id: utilService.makeId(),
             createdAt: 1112222,
             type: 'NoteTxt',
             isPinned: true,
