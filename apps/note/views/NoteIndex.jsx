@@ -1,4 +1,6 @@
 
+import { check } from './../services/note.service.js'
+
 export function NoteIndex() {
-    return <div>note app</div>
+    return <div>{check.query()}</div>
 }
