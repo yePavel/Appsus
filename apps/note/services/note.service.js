@@ -24,7 +24,6 @@ function query() {
         })
 }
 
-
 function get(noteId) {
     return asyncStorageService.get(NOTE_KEY, noteId)
         .then(note => {
@@ -37,8 +36,8 @@ function remove(noteId) {
     return asyncStorageService.remove(NOTE_KEY, noteId)
 }
 
-function save(node) {
-    if (node.id) {
+function save(note) {
+    if (note.id) {
         return asyncStorageService.put(NOTE_KEY, note)
     } else {
         return asyncStorageService.post(NOTE_KEY, note)
@@ -55,6 +54,12 @@ function getFilterFromSearchParams(searchParams) {
     }
 }
 
+// function updateNote(note, newTxt) {
+//     note.info.txt = newTxt
+
+//     console.log('note after from service:', note)
+//     return Promise.resolve(note)
+// }
 //privet function 
 
 function _createNotes() {
