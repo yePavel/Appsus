@@ -10,34 +10,40 @@ import { EmailFilter } from '../cmps/EmailFilter.jsx'
 
 export function MailIndex() {
     const [emails, setEmails] = useState([])
-    const [unreadMails, setUnreadMails] = useState(0)
+    const [emailsCounter, setEmailsCounter] = useState(0)
 
     const params = useParams()
 
     useEffect(() => {
         eMailService.query()
-            .then(emails => {
-                setEmails(emails)
-                displayUnreadEmailsCount(emails)
+            .then(emailsList => {
+                setEmails(emailsList)
+                onDisplayUnreadEmailsCnt()
             })
-    }, [])
+    }, [emailsCounter])
 
-    function displayUnreadEmailsCount(emails) {
-        console.log('emails:', emails)
-        let unReadEmails = emails.filter(email => !email.isRead).length
-        setUnreadMails(prevCounter => prevCounter = unReadEmails)
+    function onDisplayUnreadEmailsCnt() {
+        eMailService.query()
+            .then(emailsList => {
+                let counter = emailsList.filter(email => !email.isRead).length
+                setEmailsCounter(prevCounter => prevCounter = counter)
+            })
     }
+
+    console.log('params.emailId:', params.emailId)
+    console.log('emailsCounter:', emailsCounter)
 
     return <div className='emails-container'>
         <EmailFilter />
-        <SideMenu unreadMails={unreadMails} />
+        <SideMenu unreadMails={emailsCounter} />
 
-        {params.emailId && <EmailDetails />}
+        {params.emailId && <EmailDetails unreadMails={emailsCounter}
+            onDisplayUnreadEmailsCnt={onDisplayUnreadEmailsCnt} />}
+
         {!params.emailId &&
             <table>
                 {emails.length > 0 && <MailList emails={emails} />}
             </table>}
-
     </div>
 }
 

@@ -1,5 +1,7 @@
+const { useEffect } = React
 
 export function SideMenu({ unreadMails }) {
+
 
     return <div>
         <button className='compose'>
@@ -16,6 +18,10 @@ export function SideMenu({ unreadMails }) {
             <p>
                 <img className='icon' src="/assets/img/mail-icons/star.png" alt="" />
                 Starred
+            </p>
+            <p>
+                <img className='icon' src="/assets/img/mail-icons/draft.png" alt="" />
+                Draft
             </p>
             <p>
                 <img className='icon' src="/assets/img/mail-icons/sent.png" alt="" />
