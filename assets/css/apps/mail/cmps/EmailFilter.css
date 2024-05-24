@@ -1,0 +1,16 @@
+.search-container {
+    grid-column: 2/-1;
+}
+
+.search-input {
+    width: 200px;
+    border: none;
+    background: var(--mail-search-bg);
+    border-radius: 24px;
+
+    background-image: url('/assets/img/mail-icons/search.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 25px;
+    padding: 12px 20px 12px 40px;
+}

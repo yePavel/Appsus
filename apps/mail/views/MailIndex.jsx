@@ -1,36 +1,49 @@
 const { useState, useEffect } = React
-const { Link } = ReactRouterDOM
+const { useParams } = ReactRouterDOM
+
 
 import { eMailService } from '../services/eMailService.js'
 import { MailList } from '../cmps/MailList.jsx'
+import { SideMenu } from '../cmps/SideManu.jsx'
+import { EmailDetails } from '../cmps/EmailDetails.jsx'
+import { EmailFilter } from '../cmps/EmailFilter.jsx'
 
 export function MailIndex() {
     const [emails, setEmails] = useState([])
+    const [emailsCounter, setEmailsCounter] = useState(0)
+
+    const params = useParams()
 
     useEffect(() => {
         eMailService.query()
-            .then(emails => setEmails(emails))
-    }, [])
+            .then(emailsList => {
+                setEmails(emailsList)
+                onDisplayUnreadEmailsCnt()
+            })
+    }, [emailsCounter])
 
-    function onSaveEmails() {
-
+    function onDisplayUnreadEmailsCnt() {
+        eMailService.query()
+            .then(emailsList => {
+                let counter = emailsList.filter(email => !email.isRead).length
+                setEmailsCounter(prevCounter => prevCounter = counter)
+            })
     }
 
+    console.log('params.emailId:', params.emailId)
+    console.log('emailsCounter:', emailsCounter)
+
     return <div className='emails-container'>
-        <button className='compose'><img className='icon' src="/assets/img/mail-icons/pencil.png" alt="" />Compose</button>
-        <input type="text" className='search-input' />
+        <EmailFilter />
+        <SideMenu unreadMails={emailsCounter} />
 
-        <aside className='side-menu'>
-            <span><img className='icon' src="/assets/img/mail-icons/inbox.png" alt="" />Inbox </span>
-            <span><img className='icon' src="/assets/img/mail-icons/star.png" alt="" />Starred </span>
-            <span><img className='icon' src="/assets/img/mail-icons/sent.png" alt="" />Sent </span>
-            <span><img className='icon' src="/assets/img/mail-icons/trash.png" alt="" />Trash </span>
-        </aside>
+        {params.emailId && <EmailDetails unreadMails={emailsCounter}
+            onDisplayUnreadEmailsCnt={onDisplayUnreadEmailsCnt} />}
 
-        <table>
-            {emails.length > 0 && <MailList emails={emails} />}
-        </table>
-
+        {!params.emailId &&
+            <table>
+                {emails.length > 0 && <MailList emails={emails} />}
+            </table>}
     </div>
 }
 
