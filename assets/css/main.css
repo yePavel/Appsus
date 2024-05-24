@@ -26,6 +26,8 @@
 /* emailCmps */
 @import './apps/mail/cmps/MailList.css';
 @import './apps/mail/cmps/MailPreview.css';
+@import './apps/mail/cmps/SideMenu.css';
+@import './apps/mail/cmps/EmailFilter.css';
 
 
 @import './apps/mail/cmps/EmailDetails.css';
