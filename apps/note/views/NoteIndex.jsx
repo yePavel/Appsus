@@ -36,6 +36,6 @@ export function NoteIndex() {
 
     return <section className="note-index">
         <KeepHeader />
-        <NoteList notes={notes} onRemove={removeNote} />
+        <NoteList notes={notes} onRemove={removeNote} loadNotes={loadNotes()} />
     </section>
 }

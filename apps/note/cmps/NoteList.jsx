@@ -6,41 +6,39 @@ const { useParams, useNavigate } = ReactRouter
 import { NotePreview } from './NotePreview.jsx'
 import { NoteEdit } from './NoteEdit.jsx'
 
-export function NoteList({ notes, onRemove }) {
+export function NoteList({ notes, onRemove}) {
     const navigate = useNavigate()
-    
+    const params = useParams()
     const [openNoteId, setOpenNoteId] = useState(null)
 
     useEffect(() => {
-        if (openNoteId) {
-            navigate(`/note/${openNoteId}`)
+        if (params.noteId) {
+            setOpenNoteId(params.noteId);
+        } else {
+            setOpenNoteId(null);
         }
-    }, [navigate, openNoteId])
-
-    function openDialog(noteId) {
-        console.log('noteId', noteId)
-        setOpenNoteId(noteId)
-    }
+    }, [params])
 
     function closeDialog() {
+        navigate(`/note`)
         setOpenNoteId(null)
-     
     }
-
 
     return (
         <section className="note-list">
             {notes.map(note => (
-                <div onClick={() => openDialog(note.id)} key={note.id} className="note">
-                    {openNoteId === note.id && (
-                        <NoteEdit
-                            noteId={note.id}
-                            onClose={closeDialog}
-                        />
-                    )}
+               <Link to={`/note/${note.id}`}>
+                <div key={note.id} className="note">
                     <NotePreview note={note} onRemove={onRemove} />
                 </div>
+                </Link>
             ))}
+            {openNoteId &&(
+                <NoteEdit
+                    noteId={params.noteId}
+                    onClose={closeDialog}
+                />
+            )}
         </section>
     )
 }
