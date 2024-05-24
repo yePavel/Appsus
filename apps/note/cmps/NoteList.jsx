@@ -3,18 +3,19 @@ const { useState, useEffect, } = React
 const { useParams, useNavigate } = ReactRouter
 
 
-import { NotePreview } from './../cmps/NotePreview.jsx'
-import { NoteEdit } from './../views/NoteEdit.jsx'
+import { NotePreview } from './NotePreview.jsx'
+import { NoteEdit } from './NoteEdit.jsx'
 
 export function NoteList({ notes, onRemove }) {
     const navigate = useNavigate()
+    
     const [openNoteId, setOpenNoteId] = useState(null)
 
-    // useEffect(() => {
-    //     if (openNoteId) {
-    //         navigate(`/note/${openNoteId}`)
-    //     }
-    // }, [navigate, openNoteId])
+    useEffect(() => {
+        if (openNoteId) {
+            navigate(`/note/${openNoteId}`)
+        }
+    }, [navigate, openNoteId])
 
     function openDialog(noteId) {
         console.log('noteId', noteId)
@@ -23,6 +24,7 @@ export function NoteList({ notes, onRemove }) {
 
     function closeDialog() {
         setOpenNoteId(null)
+     
     }
 
 
@@ -32,7 +34,7 @@ export function NoteList({ notes, onRemove }) {
                 <div onClick={() => openDialog(note.id)} key={note.id} className="note">
                     {openNoteId === note.id && (
                         <NoteEdit
-                            note={note}
+                            noteId={note.id}
                             onClose={closeDialog}
                         />
                     )}

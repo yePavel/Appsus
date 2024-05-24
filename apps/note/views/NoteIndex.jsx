@@ -9,13 +9,18 @@ import { KeepHeader } from './../cmps/KeepHeader.jsx'
 
 export function NoteIndex() {
     const [notes, setNotes] = useState([])
-
+    
     useEffect(() => {
+        loadNotes()
+    }, [])
+
+    function loadNotes() {
         noteService.query().then(notes => {
             setNotes(notes)
         })
-    }, [])
 
+    }
+  
     function removeNote(noteId) {
         noteService.remove(noteId)
             .then(() => {

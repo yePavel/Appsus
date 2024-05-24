@@ -13,6 +13,8 @@ export const noteService = {
     save,
     getDefaultFilter,
     getFilterFromSearchParams,
+    updateNote,
+    getEmptyNote,
 
 }
 
@@ -54,12 +56,28 @@ function getFilterFromSearchParams(searchParams) {
     }
 }
 
-// function updateNote(note, newTxt) {
-//     note.info.txt = newTxt
+function updateNote(note, newTxt) {
+    note.info.txt = newTxt
 
-//     console.log('note after from service:', note)
-//     return Promise.resolve(note)
-// }
+    console.log('note after from service:', note)
+    return Promise.resolve(note)
+}
+function getEmptyNote(txt = '') {
+  return {
+        id: utilService.makeId(),
+        createdAt: 1112222,
+        type: 'NoteTxt',
+        isPinned: true,
+        style: {
+            backgroundColor: '#00d'
+        },
+        info: {
+            txt
+        }
+    }
+}
+
+
 //privet function 
 
 function _createNotes() {
@@ -68,7 +86,7 @@ function _createNotes() {
     if (notes && notes.length) return
 
     for (let i = 0; i < 10; i++) {
-        const note =     {
+        const note = {
             id: utilService.makeId(),
             createdAt: 1112222,
             type: 'NoteTxt',

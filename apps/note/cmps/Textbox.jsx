@@ -1,5 +1,5 @@
 
-export function Textbox({ handleChange, txt }) {
+export function Textbox({ handleChange,name,txt }) {
 
     function onSetTxt({target}) {
         const txt = target.value
@@ -8,7 +8,7 @@ export function Textbox({ handleChange, txt }) {
 
     return (
         <textarea
-            name='txt'
+            name={name}
             style={{
                 width: '100%',
                 height: 'auto',
