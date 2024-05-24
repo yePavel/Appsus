@@ -7,11 +7,13 @@ import { Textbox } from './Textbox.jsx'
 
 export function NoteEdit({ noteId, onClose }) {
     const [note, setNote] = useState(noteService.getEmptyNote())
+    const navigate = useNavigate()
 
     useEffect(() => {
-        noteService.get(noteId)
-            .then(setNote)
-    }, [])
+        if (noteId) {
+            noteService.get(noteId).then(setNote);
+        }
+    }, [noteId])
 
 
     function onSaveNote(ev) {
@@ -20,7 +22,9 @@ export function NoteEdit({ noteId, onClose }) {
         noteService.save(note)
             .then(() => {
                 console.log('Note saved successfully')
-                onClose() // Close the dialog after saving
+                navigate(`/note`)
+                onClose()
+               
             })
             .catch(() => {
                 alert('Could not save the note')
