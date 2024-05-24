@@ -16,8 +16,21 @@ export function NoteIndex() {
         })
     }, [])
 
-return <section className="note-index">
-    <KeepHeader />
-    <NoteList notes={notes} />
-</section>
+    function removeNote(noteId) {
+        noteService.remove(noteId)
+            .then(() => {
+                setNotes(prevNots => prevNots.filter(note => note.id != noteId))
+                // showSuccessMsg(`Node removed successfully!`)
+            })
+            .catch(err => {
+                console.log('err:', err)
+                // showErrorMsg('There was a problem')
+            })
+
+    }
+
+    return <section className="note-index">
+        <KeepHeader />
+        <NoteList notes={notes} onRemove={removeNote} />
+    </section>
 }
