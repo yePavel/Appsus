@@ -1,29 +1,40 @@
 .compose-modal {
-    display: grid;
-    grid-template-columns: minmax(150px, 100px) minmax(100px, 1fr);
     position: absolute;
 
     min-width: 400px;
     bottom: 0;
     left: 5%;
     gap: 10px;
-    padding: 10px;
     border-radius: 8px 8px 0 0;
     background-color: var(--main-bg-color);
-    box-shadow: 8px 10px 1px rgba(0, 0, 0, .14),
-        0px 3px 14px 2px rgba(0, 0, 0, .12),
-        0px 5px 5px -3px rgba(0, 0, 0, .2);
+    box-shadow: 8px 10px 1px 1px rgba(0, 0, 0, .14),
+        0px 3px 14px 10px rgba(0, 0, 0, .12),
+        0px 5px 5px 3px rgba(0, 0, 0, .2)
 }
 
-.compose-modal h2 {
+.compose-modal .input-area {
+    display: grid;
+    grid-template-columns: minmax(150px, 100px) minmax(100px, 1fr);
+    padding: 10px;
+    gap: 10px;
+}
+
+.compose-modal .sent-email-header {
+    margin: 0;
     grid-column: 1/-1;
+    font-size: 18px;
+    padding: 10px;
     background-color: var(--mail-readed);
 }
 
 .compose-modal .btn-close-compose {
     position: absolute;
+    background-color: transparent;
+    font-size: 1.1em;
+    border: none;
     right: 5px;
-    top: 5px;
+    top: 12px;
+    font-weight: 500;
 }
 
 .compose-modal .sent-from {
@@ -33,24 +44,33 @@
 }
 
 .compose-modal input {
+    position: relative;
     grid-column: 1/-1;
     border: none;
     outline: none;
 }
 
-.compose-modal input:before {
+.grey-under-line {
+    display: block;
     position: absolute;
-    content: "____________________\A____________________";
-    z-index: -1;
     left: 0;
-    top: 0;
-    width: 100%;
-    color: silver;
-    line-height: 1.4;
+    right: 0;
+    height: 1px;
+    background-color: grey;
 }
 
 .compose-modal .sent-email-btn {
     grid-column: 1/2;
+    min-width: 72px;
+    min-height: 36px;
+
+    background-color: var(--mail-send-btn-bg);
+    color: #fff;
+
+    border: none;
+    border-radius: 18px;
+    margin-block-end: 20px;
+    margin-inline-start: 20px;
 }
 
 .compose-modal textarea {

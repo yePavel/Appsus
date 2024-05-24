@@ -15,6 +15,7 @@ export const eMailService = {
     query,
     get,
     save,
+    remove,
     saveSendEmail
 }
 
@@ -52,6 +53,10 @@ function save(email) {
     else {
         return asyncStorageService.post(EMAIL_KEY, email)
     }
+}
+
+function remove(email) {
+    return asyncStorageService.remove(EMAIL_KEY, email)
 }
 
 function saveSendEmail(email) {

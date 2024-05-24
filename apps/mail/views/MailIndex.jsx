@@ -40,6 +40,7 @@ export function MailIndex() {
         eMailService.saveSendEmail(sentEmail)
     }
 
+
     return <div className='emails-container'>
         <EmailFilter />
         <SideMenu unreadMails={emailsCounter} toggleCompose={onToggleCompose} />
