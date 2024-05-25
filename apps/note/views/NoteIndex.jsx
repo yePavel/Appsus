@@ -4,6 +4,7 @@ import { noteService } from './../services/note.service.js'
 
 import { NoteList } from './../cmps/NoteList.jsx'
 import { KeepHeader } from './../cmps/KeepHeader.jsx'
+import { NoteAdd } from './../cmps/NoteAdd.jsx'
 
 
 
@@ -36,6 +37,7 @@ export function NoteIndex() {
 
     return <section className="note-index">
         <KeepHeader />
+        <NoteAdd loadNotes={loadNotes}/>
         <NoteList notes={notes} onRemove={removeNote} loadNotes={loadNotes()} />
     </section>
 }
