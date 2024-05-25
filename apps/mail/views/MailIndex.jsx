@@ -2,7 +2,7 @@ const { useState, useEffect } = React
 const { useNavigate } = ReactRouter
 const { useParams, useSearchParams } = ReactRouterDOM
 
-import { eMailService } from '../services/eMailService.js'
+import { eMailService } from '../services/emailService.js'
 import { SideMenu } from '../cmps/SideManu.jsx'
 import { MailList } from '../cmps/MailList.jsx'
 import { EmailDetails } from '../cmps/EmailDetails.jsx'
@@ -59,6 +59,7 @@ export function MailIndex() {
     }
 
     return <div className='emails-container'>
+        <img className='main-icon' src="/assets/img/mail-icons/gmail-icon.png" alt="gmail-icon" />
         <EmailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
         <SideMenu unreadMails={emailsCounter} toggleCompose={onToggleCompose} />
 
