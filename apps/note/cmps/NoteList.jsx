@@ -13,9 +13,9 @@ export function NoteList({ notes, onRemove}) {
 
     useEffect(() => {
         if (params.noteId) {
-            setOpenNoteId(params.noteId);
+            setOpenNoteId(params.noteId)
         } else {
-            setOpenNoteId(null);
+            setOpenNoteId(null)
         }
     }, [params])
 

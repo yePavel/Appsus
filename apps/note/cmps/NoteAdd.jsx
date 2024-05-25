@@ -19,7 +19,7 @@ export function NoteAdd() {
         noteService.saveNewNote(note)
             .then(() => {
                 console.log('Note saved successfully')
-                setNote(noteService.getEmptyNote())
+
             })
             .catch(() => {
                 alert('Could not save the note')
@@ -29,7 +29,9 @@ export function NoteAdd() {
     useEffect(() => {
         function handleClickOutside(event) {
             if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+                console.log('wrapperRef.current', wrapperRef.current)
                 onSaveNote()
+                
             }
         }
 
