@@ -1,4 +1,5 @@
 const { useState, useEffect } = React
+const { useNavigate } = ReactRouter
 const { useParams, useSearchParams } = ReactRouterDOM
 
 import { eMailService } from '../services/eMailService.js'
@@ -14,6 +15,7 @@ export function MailIndex() {
     const [composeFlag, setComposeFlag] = useState(false)
 
     const params = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         eMailService.query()
@@ -39,17 +41,26 @@ export function MailIndex() {
         eMailService.saveSendEmail(sentEmail)
     }
 
+    function onRemoveEmail(emailId, ev) {
+        ev.stopPropagation()
+        eMailService.remove(emailId)
+            .then(() => {
+                setEmails(prevEmails => prevEmails.filter(email => email.id !== emailId))
+                navigate('/mail')
+            })
+            .catch(err => console.log('err:', err))
+    }
 
     return <div className='emails-container'>
         <EmailFilter />
         <SideMenu unreadMails={emailsCounter} toggleCompose={onToggleCompose} />
 
         {params.emailId && <EmailDetails unreadMails={emailsCounter}
-            onDisplayUnreadEmailsCnt={onDisplayUnreadEmailsCnt} />}
+            onDisplayUnreadEmailsCnt={onDisplayUnreadEmailsCnt} removeEmail={onRemoveEmail} />}
 
         {!params.emailId &&
             <table>
-                {emails.length > 0 && <MailList emails={emails} />}
+                {emails.length > 0 && <MailList emails={emails} removeEmail={onRemoveEmail} />}
             </table>}
 
         {composeFlag && <EmailCompose toggleCompose={onToggleCompose} saveSentEmail={onSaveSentEmail} />}

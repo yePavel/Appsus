@@ -4,19 +4,21 @@ import { storageService } from '../../../services/storage.service.js'
 
 const EMAIL_KEY = 'emailsDB'
 const SENT_EMAIL_KEY = 'sentEmailsDB'
-_createEmailsList()
 
 const loggedinUser = {
     email: 'user@appsus.com',
     fullname: 'Mahatma Appsus'
 }
 
+_createEmailsList()
+
+
 export const eMailService = {
     query,
     get,
     save,
     remove,
-    saveSendEmail
+    saveSendEmail,
 }
 
 window.ms = eMailService
@@ -98,7 +100,7 @@ function _createEmailsList() {
                 sentAt: utilService.getRandomDate(),
                 removedAt: null,
                 from: `${utilService.getUserEmail()}`,
-                to: 'user@appsus.com'
+                to: loggedinUser.email
             }
             emailsList.push(email)
         }

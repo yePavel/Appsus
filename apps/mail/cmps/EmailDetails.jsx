@@ -1,10 +1,10 @@
-import { storageService } from "../../../services/storage.service.js"
+
 import { eMailService } from "../../mail/services/eMailService.js"
 
 const { useEffect, useState } = React
 const { Link, useParams } = ReactRouterDOM
 
-export function EmailDetails({ onDisplayUnreadEmailsCnt }) {
+export function EmailDetails({ onDisplayUnreadEmailsCnt, removeEmail }) {
     const [email, setEmail] = useState({})
     const params = useParams()
 
@@ -17,10 +17,17 @@ export function EmailDetails({ onDisplayUnreadEmailsCnt }) {
             })
     }, [])
 
-    console.log('email:', email)
-
     return <div className='email-details'>
-        <Link to={'/mail/'}><button>Go back</button></Link>
+        <div className='email-details-actions'>
+            <Link to={'/mail/'}>
+                <button>
+                    <img className='icon' src="/assets/img/mail-icons/back-arrow.png" alt="" />
+                </button>
+            </Link>
+            <button onClick={(ev) => removeEmail(email.id, ev)}>
+                <img className='icon-trash' src="/assets/img/mail-icons/trash.png" alt="" />
+            </button>
+        </div>
 
         <h3>Subject: {email.subject}</h3>
         <p>From: {email.from}</p>
