@@ -3,6 +3,7 @@ import { utilService } from '../../../services/util.service.js'
 import { storageService } from '../../../services/storage.service.js'
 
 const EMAIL_KEY = 'emailsDB'
+const SENT_EMAIL_KEY = 'sentEmailsDB'
 _createEmailsList()
 
 const loggedinUser = {
@@ -14,7 +15,7 @@ export const eMailService = {
     query,
     get,
     save,
-    getEmailFromSearchParams
+    saveSendEmail
 }
 
 window.ms = eMailService
@@ -53,11 +54,21 @@ function save(email) {
     }
 }
 
-function getEmailFromSearchParams(searchParams) {
-    return searchParams.get('carId') || ''
-
+function saveSendEmail(email) {
+    const currEmail = _createEmail(email)
+    return asyncStorageService.post(SENT_EMAIL_KEY, currEmail)
 }
+
+
 // ~~~~~~~~~~~~~~~~~~~~~~ LOCAL FUNC ~~~~~~~~~~~~~~~~
+
+function _createEmail(emailToSave) {
+    return {
+        id: utilService.makeId(),
+        ...emailToSave,
+    }
+}
+
 function _setNextPrevMailId(mail) {
     return storageService.query(EMAIL_KEY)
         .then((emails) => {

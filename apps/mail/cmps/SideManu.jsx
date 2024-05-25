@@ -1,10 +1,9 @@
 const { useEffect } = React
 
-export function SideMenu({ unreadMails }) {
-
+export function SideMenu({ unreadMails, toggleCompose }) {
 
     return <div>
-        <button className='compose'>
+        <button className='compose-btn' onClick={() => toggleCompose()}>
             <img className='icon' src="/assets/img/mail-icons/pencil.png" alt="" />
             Compose
         </button>

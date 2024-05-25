@@ -1,4 +1,4 @@
-.compose {
+.compose-btn {
     display: flex;
     background-color: var(--mail-compose-bg);
     border-radius: 24px;
@@ -8,7 +8,7 @@
     gap: 5px;
 }
 
-.compose .icon {
+.compose-btn .icon {
     width: 20px;
 }
 
