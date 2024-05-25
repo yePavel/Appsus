@@ -7,7 +7,8 @@ export const utilService = {
     getDayName,
     getMonthName,
     getRandomDate,
-    getUserEmail
+    getUserEmail,
+    getCurrentTime
 }
 
 function makeId(length = 6) {
@@ -83,6 +84,14 @@ function getMonthName(date) {
         "July", "August", "September", "October", "November", "December"
     ]
     return monthNames[date.getMonth()]
+}
+
+function getCurrentTime() {
+    const now = new Date()
+    const hours = String(now.getHours()).padStart(2, '0')
+    const minutes = String(now.getMinutes()).padStart(2, '0')
+    const seconds = String(now.getSeconds()).padStart(2, '0')
+    return `${hours}:${minutes}`
 }
 
 // ~~~~~~~~~~~~~~~ LOCAL FUNC ~~~~~~~~~~~~~~~~

@@ -1,0 +1,20 @@
+.header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #dadce0;
+    padding: 10px 20px;
+}
+
+.header-title {
+    color: #202124;
+    font-family: 'sans-serif';
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.keep-icon {
+    display: inline-block; 
+    width: 30px; 
+    height: 20px; 
+    margin-left: 10px; 
+}

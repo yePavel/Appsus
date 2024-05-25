@@ -15,6 +15,7 @@ export const noteService = {
     getFilterFromSearchParams,
     updateNote,
     getEmptyNote,
+    saveNewNote,
 
 }
 
@@ -45,6 +46,9 @@ function save(note) {
         return asyncStorageService.post(NOTE_KEY, note)
     }
 }
+function saveNewNote(note){
+    return asyncStorageService.post(NOTE_KEY, note)
+}
 
 function getDefaultFilter(filterBy = { txt: '' }) {
     return { txt: filterBy.txt }
@@ -62,20 +66,23 @@ function updateNote(note, newTxt) {
     console.log('note after from service:', note)
     return Promise.resolve(note)
 }
-function getEmptyNote(txt = '') {
-  return {
+function getEmptyNote(title = '',txt = '') {
+    return {
         id: utilService.makeId(),
-        createdAt: 1112222,
+        createdAt: utilService.getCurrentTime(),
         type: 'NoteTxt',
-        isPinned: true,
+        isPinned: false,
         style: {
             backgroundColor: '#00d'
         },
         info: {
+            title,
             txt
         }
     }
 }
+
+
 
 
 //privet function 
@@ -88,14 +95,16 @@ function _createNotes() {
     for (let i = 0; i < 10; i++) {
         const note = {
             id: utilService.makeId(),
-            createdAt: 1112222,
+            createdAt: utilService.getCurrentTime(),
             type: 'NoteTxt',
             isPinned: true,
             style: {
                 backgroundColor: '#00d'
             },
             info: {
+                title: 'NoteTxt',
                 txt: 'Fullstack Me Baby!'
+            
             }
         }
         notes.push(note)

@@ -21,6 +21,7 @@ export function Textbox({ handleChange,name,txt }) {
             value={txt}
             type= 'text'
             onChange={onSetTxt}
+            placeholder='Take a note...'
         ></textarea>
     )
 

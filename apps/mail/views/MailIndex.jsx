@@ -15,7 +15,6 @@ export function MailIndex() {
 
     const params = useParams()
 
-
     useEffect(() => {
         eMailService.query()
             .then(emailsList => {
