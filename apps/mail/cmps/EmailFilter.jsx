@@ -22,8 +22,8 @@ export function EmailFilter({ filterBy, onFilter }) {
             value={txt}
             onChange={handleChange} />
 
-        <div className='radio-inputs'>
 
+        <div className='radio-inputs'>
             <label className="radio">
                 <input id='all' value='all' type="radio" name="isRead" onChange={handleChange} />
                 <span className="name">All</span>
