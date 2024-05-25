@@ -1,4 +1,7 @@
 .search-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
     grid-column: 2/-1;
 }
 
@@ -13,4 +16,40 @@
     background-position: left center;
     background-size: 25px;
     padding: 12px 20px 12px 40px;
+}
+
+.radio-inputs {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--main-bg-color);
+    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+    gap: 5px;
+    font-size: 14px;
+}
+
+.radio-inputs .radio {
+    flex: 1 1 auto;
+    text-align: center;
+    padding-inline-start: 5px;
+}
+
+.radio-inputs .radio input {
+    display: none;
+}
+
+.radio-inputs .radio .name {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    border: none;
+    padding: .5rem 0;
+    color: rgba(51, 65, 85, 1);
+    transition: all .2s ease-in-out;
+}
+
+.radio-inputs .radio input:checked+.name {
+    color: var(--mail-send-btn-bg);
+    border-bottom: 1px solid var(--mail-send-btn-bg);
+    font-weight: 600;
 }

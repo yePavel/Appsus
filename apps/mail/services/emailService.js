@@ -24,7 +24,6 @@ export const eMailService = {
 
 window.ms = eMailService
 
-
 function query(filterBy = {}) {
     console.log('filterBy:', filterBy)
     return asyncStorageService.query(EMAIL_KEY)
@@ -36,8 +35,11 @@ function query(filterBy = {}) {
                     regExp.test(email.subject)
                 )
             }
-            if (filterBy.isRead) {
-                emails = emails.filter(email => email.isRead)
+            if (filterBy.isRead === 'unread') {
+                emails = emails.filter(email => !email.isRead)
+            }
+            if (filterBy.isRead === 'all') {
+                emails = emails.filter(email => email.id)
             }
 
             return emails
@@ -74,7 +76,7 @@ function saveSendEmail(email) {
 function getFilterFromSearchParams(searchParams) {
     return {
         txt: searchParams.get('txt') || '',
-        isRead: searchParams.get('isRead') || '',
+        isRead: searchParams.get('isRead') || ''
     }
 }
 
