@@ -3,8 +3,8 @@ const { useNavigate } = ReactRouter
 const { useParams, useSearchParams } = ReactRouterDOM
 
 import { eMailService } from '../services/eMailService.js'
-import { MailList } from '../cmps/MailList.jsx'
 import { SideMenu } from '../cmps/SideManu.jsx'
+import { MailList } from '../cmps/MailList.jsx'
 import { EmailDetails } from '../cmps/EmailDetails.jsx'
 import { EmailFilter } from '../cmps/EmailFilter.jsx'
 import { EmailCompose } from '../cmps/EmailCompose.jsx'
@@ -13,17 +13,20 @@ export function MailIndex() {
     const [emails, setEmails] = useState([])
     const [emailsCounter, setEmailsCounter] = useState(0)
     const [composeFlag, setComposeFlag] = useState(false)
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [filterBy, setFilterBy] = useState(eMailService.getFilterFromSearchParams(searchParams))
 
     const params = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
-        eMailService.query()
+        setSearchParams(filterBy)
+        eMailService.query(filterBy)
             .then(emailsList => {
                 setEmails(emailsList)
                 onDisplayUnreadEmailsCnt()
             })
-    }, [emailsCounter])
+    }, [emailsCounter, filterBy])
 
     function onDisplayUnreadEmailsCnt() {
         eMailService.query()
@@ -51,8 +54,12 @@ export function MailIndex() {
             .catch(err => console.log('err:', err))
     }
 
+    function onSetFilterBy(newFilter) {
+        setFilterBy({ ...newFilter })
+    }
+
     return <div className='emails-container'>
-        <EmailFilter />
+        <EmailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
         <SideMenu unreadMails={emailsCounter} toggleCompose={onToggleCompose} />
 
         {params.emailId && <EmailDetails unreadMails={emailsCounter}
