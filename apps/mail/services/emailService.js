@@ -22,10 +22,9 @@ export const eMailService = {
     getFilterFromSearchParams
 }
 
-window.ms = eMailService
+window.ems = eMailService
 
 function query(filterBy = {}) {
-    console.log('filterBy:', filterBy)
     return asyncStorageService.query(EMAIL_KEY)
         .then(emails => {
             if (filterBy.txt) {
@@ -104,7 +103,7 @@ function _setNextPrevMailId(mail) {
 function _createEmailsList() {
     let emailsList = storageService.loadFromStorage(EMAIL_KEY) || []
     if (!emailsList || !emailsList.length) {
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 15; i++) {
             const email = {
                 id: utilService.makeId(),
                 subject: utilService.makeLorem(3),

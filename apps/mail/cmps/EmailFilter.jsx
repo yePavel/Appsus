@@ -31,7 +31,7 @@ export function EmailFilter({ filterBy, onFilter }) {
 
             <label className="radio">
                 <input id='unread' value='unread' type="radio" name="isRead" onChange={handleChange} />
-                <span className="name">Unread ^</span>
+                <span className="name">Unread</span>
             </label>
 
         </div>
