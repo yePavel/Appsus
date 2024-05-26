@@ -101,7 +101,6 @@ function _sortByDate(emails, keyWord, dir) {
         })
     else {
         return emails.sort((a, b) => {
-            console.log('false:',)
             const dateA = new Date(a[keyWord])
             const dateB = new Date(b[keyWord])
             return dateA - dateB
