@@ -1,15 +1,27 @@
-const { useEffect } = React
+const { useEffect, useState } = React
+const { useSearchParams } = ReactRouterDOM
+
+import { eMailService } from "../services/emailService.js"
 
 export function SideMenu({ unreadMails, toggleCompose }) {
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [filterBy, setFilterBy] = useState(eMailService.getFilterFromSearchParams(searchParams))
+    console.log('filterBy:', filterBy)
 
-    return <div>
+    function handleChange(newLabel) {
+        console.log('newLabel:', newLabel)
+        setFilterBy({ ...filterBy, status: newLabel })
+    }
+
+    return <div className='side-menu-container'>
         <button className='compose-btn' onClick={() => toggleCompose()}>
             <img className='icon' src="/assets/img/mail-icons/pencil.png" alt="" />
             Compose
         </button>
 
         <aside className='side-menu'>
-            <p>
+            <p className={`${filterBy.status === 'inbox' ? 'active-label' : ''}`}
+                onClick={() => handleChange('inbox')}>
                 <img className='icon' src="/assets/img/mail-icons/inbox.png" alt="" />
                 Inbox
                 {unreadMails > 0 && <span className='unread-counter'>{unreadMails}</span>}
@@ -22,7 +34,8 @@ export function SideMenu({ unreadMails, toggleCompose }) {
                 <img className='icon' src="/assets/img/mail-icons/draft.png" alt="" />
                 Draft
             </p>
-            <p>
+            <p className={`${filterBy.status === 'sent' ? 'active-label' : ''}`}
+                onClick={() => handleChange('sent')}>
                 <img className='icon' src="/assets/img/mail-icons/sent.png" alt="" />
                 Sent
             </p>

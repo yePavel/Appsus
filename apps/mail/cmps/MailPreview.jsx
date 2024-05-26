@@ -19,7 +19,8 @@ export function MailPreview({ mail, removeEmail }) {
         let month = utilService.getMonthName(date)
         let year = utilService.getYear(date)
 
-        return year
+        if (year < 2023) return year
+        if (year >= 2023) return month + " " + year
     }
 
     return (

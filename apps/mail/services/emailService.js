@@ -79,10 +79,11 @@ function saveSendEmail(email) {
 
 function getFilterFromSearchParams(searchParams) {
     return {
+        status: 'inbox',
         txt: searchParams.get('txt') || '',
         isRead: searchParams.get('isRead') || 'all',
         subject: searchParams.get('subject') || '',
-        sentAt: searchParams.get('sentAt') || 'true'
+        sentAt: searchParams.get('sentAt') || 'true',
     }
 }
 
