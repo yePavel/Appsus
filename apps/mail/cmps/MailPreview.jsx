@@ -2,15 +2,24 @@ const { useState } = React
 const { Link } = ReactRouterDOM
 
 import { eMailService } from '../services/eMailService.js'
+import { utilService } from '../../../services/util.service.js'
 
 export function MailPreview({ mail, removeEmail }) {
     const [currMail, setCurrMail] = useState(mail)
 
     function onSetIsRead() {
-        setCurrMail((prevMail) => {
+        setCurrMail(() => {
             const updatedMail = { ...currMail, isRead: true }
             eMailService.save(updatedMail)
         })
+    }
+
+    function getDateTime(date) {
+        let day = utilService.getDayName(date)
+        let month = utilService.getMonthName(date)
+        let year = utilService.getYear(date)
+
+        return year
     }
 
     return (
@@ -21,7 +30,7 @@ export function MailPreview({ mail, removeEmail }) {
                     ⭐
                     <p>{mail.from}</p>
                     <p>{mail.subject}</p>
-                    <p>{mail.sentAt}</p>
+                    <p>{getDateTime(mail.sentAt)}</p>
 
                 </div>
             </Link>

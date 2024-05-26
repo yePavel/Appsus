@@ -68,7 +68,8 @@ export function MailIndex() {
 
         {!params.emailId &&
             <table>
-                {emails.length > 0 && <MailList emails={emails} removeEmail={onRemoveEmail} />}
+                {emails.length > 0 && <MailList
+                    emails={emails} removeEmail={onRemoveEmail} />}
             </table>}
 
         {composeFlag && <EmailCompose toggleCompose={onToggleCompose} saveSentEmail={onSaveSentEmail} />}

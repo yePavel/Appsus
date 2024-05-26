@@ -43,6 +43,9 @@ function query(filterBy = {}) {
             if (filterBy.subject) {
                 emails = _sortBySubject(emails, 'subject')
             }
+            if (filterBy.sentAt === true || filterBy.sentAt === false) {
+                emails = _sortByDate(emails, 'sentAt', filterBy.sentAt)
+            }
 
             return emails
         })
@@ -77,18 +80,33 @@ function saveSendEmail(email) {
 function getFilterFromSearchParams(searchParams) {
     return {
         txt: searchParams.get('txt') || '',
-        isRead: searchParams.get('isRead') || '',
-        subject: searchParams.get('subject') || ''
+        isRead: searchParams.get('isRead') || 'all',
+        subject: searchParams.get('subject') || '',
+        sentAt: searchParams.get('sentAt') || 'true'
     }
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~ LOCAL FUNC ~~~~~~~~~~~~~~~~
 
 function _sortBySubject(emails, keyWord) {
-    console.log('emails:', emails)
-    emails.sort((a, b) => a[keyWord].localeCompare(b[keyWord], 'en', { sensitivity: 'base' }))
-    console.log('emails:', emails)
-    return emails
+    return emails.sort((a, b) => a[keyWord].localeCompare(b[keyWord], 'en', { sensitivity: 'base' }))
+}
+
+function _sortByDate(emails, keyWord, dir) {
+    if (dir)
+        return emails.sort((a, b) => {
+            const dateA = new Date(a[keyWord])
+            const dateB = new Date(b[keyWord])
+            return dateB - dateA
+        })
+    else {
+        return emails.sort((a, b) => {
+            console.log('false:',)
+            const dateA = new Date(a[keyWord])
+            const dateB = new Date(b[keyWord])
+            return dateA - dateB
+        })
+    }
 }
 
 function _createEmail(emailToSave) {
@@ -119,7 +137,8 @@ function _createEmailsList() {
                 subject: utilService.makeLorem(3),
                 body: 'Would love to catch up sometimes',
                 isRead: false,
-                sentAt: utilService.getRandomDate(),
+                sentAt: utilService.getRandomTimestamp('2000-01-01T00:00:00Z', '2024-05-26T23:59:59Z')
+                    .toISOString().slice(0, 10),
                 removedAt: null,
                 from: `${utilService.getUserEmail()}`,
                 to: loggedinUser.email

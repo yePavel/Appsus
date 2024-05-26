@@ -2,12 +2,13 @@ const { useState, useEffect } = React
 
 export function EmailFilter({ filterBy, onFilter }) {
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
+    const [checkedStatus, setCheckedStatus] = useState('')
     const { txt } = filterByToEdit
 
     function handleChange({ target }) {
         const { name, type } = target
         let value = (type === 'checkbox') ? target.checked : target.value
-
+        setCheckedStatus(prevChecked => prevChecked = name)
         setFilterByToEdit(prevFilterBy =>
             ({ ...prevFilterBy, [name]: value })
         )
@@ -23,7 +24,8 @@ export function EmailFilter({ filterBy, onFilter }) {
             name='txt'
             className='search-input'
             value={txt}
-            onChange={handleChange} />
+            onChange={handleChange}
+        />
 
         <label htmlFor="subject">
             <input id='subject' type="checkbox"
@@ -31,6 +33,14 @@ export function EmailFilter({ filterBy, onFilter }) {
                 className='sort-by-subject'
                 onChange={handleChange} />
             <span>Sort by subject</span>
+        </label>
+
+        <label htmlFor="sentAt">
+            <input id='sentAt' type="checkbox"
+                name='sentAt'
+                className='sort-by-sentAt'
+                onChange={handleChange} />
+            <span>Sort by date</span>
         </label>
 
         <div className='radio-inputs'>
