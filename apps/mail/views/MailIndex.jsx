@@ -27,7 +27,7 @@ export function MailIndex() {
                 onDisplayUnreadEmailsCnt()
             })
     }, [emailsCounter, filterBy])
-
+    console.log('filterBy:', filterBy)
     function onDisplayUnreadEmailsCnt() {
         eMailService.query()
             .then(emailsList => {

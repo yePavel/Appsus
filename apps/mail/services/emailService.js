@@ -40,6 +40,9 @@ function query(filterBy = {}) {
             if (filterBy.isRead === 'all') {
                 emails = emails.filter(email => email.id)
             }
+            if (filterBy.subject) {
+                emails = _sortBySubject(emails, 'subject')
+            }
 
             return emails
         })
@@ -51,7 +54,6 @@ function get(mailId) {
             // mail = _setNextPrevMailId(mail)
             return mail
         })
-
 }
 
 function save(email) {
@@ -75,11 +77,19 @@ function saveSendEmail(email) {
 function getFilterFromSearchParams(searchParams) {
     return {
         txt: searchParams.get('txt') || '',
-        isRead: searchParams.get('isRead') || ''
+        isRead: searchParams.get('isRead') || '',
+        subject: searchParams.get('subject') || ''
     }
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~ LOCAL FUNC ~~~~~~~~~~~~~~~~
+
+function _sortBySubject(emails, keyWord) {
+    console.log('emails:', emails)
+    emails.sort((a, b) => a[keyWord].localeCompare(b[keyWord], 'en', { sensitivity: 'base' }))
+    console.log('emails:', emails)
+    return emails
+}
 
 function _createEmail(emailToSave) {
     return {
