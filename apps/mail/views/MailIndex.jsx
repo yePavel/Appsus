@@ -20,14 +20,23 @@ export function MailIndex() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        setSearchParams(filterBy)
-        eMailService.query(filterBy)
-            .then(emailsList => {
-                setEmails(emailsList)
-                onDisplayUnreadEmailsCnt()
-            })
+        if (filterBy.status === 'inbox') {
+            setSearchParams(filterBy)
+            eMailService.query(filterBy)
+                .then(emailsList => {
+                    setEmails(emailsList)
+                })
+        }
+        else if (filterBy.status === 'sent') {
+            setSearchParams(filterBy)
+            eMailService.getEmailsByStatus(filterBy)
+                .then(emailsList => {
+                    setEmails(emailsList)
+                })
+        }
+        onDisplayUnreadEmailsCnt()
     }, [emailsCounter, filterBy])
-    console.log('filterBy:', filterBy)
+
     function onDisplayUnreadEmailsCnt() {
         eMailService.query()
             .then(emailsList => {
@@ -61,7 +70,8 @@ export function MailIndex() {
     return <div className='emails-container'>
         <img className='main-icon' src="/assets/img/mail-icons/gmail-icon.png" alt="gmail-icon" />
         <EmailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
-        <SideMenu unreadMails={emailsCounter} toggleCompose={onToggleCompose} />
+        <SideMenu unreadMails={emailsCounter} toggleCompose={onToggleCompose}
+            filterBy={filterBy} onFilter={onSetFilterBy} />
 
         {params.emailId && <EmailDetails unreadMails={emailsCounter}
             onDisplayUnreadEmailsCnt={onDisplayUnreadEmailsCnt} removeEmail={onRemoveEmail} />}

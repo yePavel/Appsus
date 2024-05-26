@@ -12,14 +12,14 @@ const loggedinUser = {
 
 _createEmailsList()
 
-
 export const eMailService = {
     query,
     get,
     save,
     remove,
     saveSendEmail,
-    getFilterFromSearchParams
+    getFilterFromSearchParams,
+    getEmailsByStatus
 }
 
 window.ems = eMailService
@@ -37,7 +37,7 @@ function query(filterBy = {}) {
             if (filterBy.isRead === 'unread') {
                 emails = emails.filter(email => !email.isRead)
             }
-            if (filterBy.isRead === 'all') {
+            else if (filterBy.isRead === 'all') {
                 emails = emails.filter(email => email.id)
             }
             if (filterBy.subject) {
@@ -47,6 +47,15 @@ function query(filterBy = {}) {
                 emails = _sortByDate(emails, 'sentAt', filterBy.sentAt)
             }
 
+            return emails
+        })
+}
+
+function getEmailsByStatus(filterBy = {}) {
+    return asyncStorageService.query(SENT_EMAIL_KEY)
+        .then(emails => {
+            if (filterBy === 'sent')
+                emails = emails.filter(email => email.id)
             return emails
         })
 }

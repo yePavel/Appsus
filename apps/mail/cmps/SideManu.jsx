@@ -1,16 +1,14 @@
 const { useEffect, useState } = React
-const { useSearchParams } = ReactRouterDOM
 
-import { eMailService } from "../services/emailService.js"
+export function SideMenu({ unreadMails, toggleCompose, filterBy, onFilter }) {
+    const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
 
-export function SideMenu({ unreadMails, toggleCompose }) {
-    const [searchParams, setSearchParams] = useSearchParams()
-    const [filterBy, setFilterBy] = useState(eMailService.getFilterFromSearchParams(searchParams))
-    console.log('filterBy:', filterBy)
+    useEffect(() => {
+        onFilter(filterByToEdit)
+    }, [filterByToEdit])
 
     function handleChange(newLabel) {
-        console.log('newLabel:', newLabel)
-        setFilterBy({ ...filterBy, status: newLabel })
+        setFilterByToEdit({ ...filterByToEdit, status: newLabel })
     }
 
     return <div className='side-menu-container'>
@@ -20,7 +18,7 @@ export function SideMenu({ unreadMails, toggleCompose }) {
         </button>
 
         <aside className='side-menu'>
-            <p className={`${filterBy.status === 'inbox' ? 'active-label' : ''}`}
+            <p className={`${filterByToEdit.status === 'inbox' ? 'active-label' : ''}`}
                 onClick={() => handleChange('inbox')}>
                 <img className='icon' src="/assets/img/mail-icons/inbox.png" alt="" />
                 Inbox
@@ -34,7 +32,7 @@ export function SideMenu({ unreadMails, toggleCompose }) {
                 <img className='icon' src="/assets/img/mail-icons/draft.png" alt="" />
                 Draft
             </p>
-            <p className={`${filterBy.status === 'sent' ? 'active-label' : ''}`}
+            <p className={`${filterByToEdit.status === 'sent' ? 'active-label' : ''}`}
                 onClick={() => handleChange('sent')}>
                 <img className='icon' src="/assets/img/mail-icons/sent.png" alt="" />
                 Sent

@@ -1,9 +1,7 @@
 
-
-import { FilterByTopic } from "./FilterByTopic.jsx"
 import { MailPreview } from "./MailPreview.jsx"
 
-export function MailList({ emails, removeEmail, onHandleChange }) {
+export function MailList({ emails, removeEmail }) {
 
     return <tbody className={'emails-list'}>
         {emails.map(email =>

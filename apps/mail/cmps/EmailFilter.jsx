@@ -2,13 +2,11 @@ const { useState, useEffect } = React
 
 export function EmailFilter({ filterBy, onFilter }) {
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
-    const [checkedStatus, setCheckedStatus] = useState('')
     const { txt } = filterByToEdit
 
     function handleChange({ target }) {
         const { name, type } = target
         let value = (type === 'checkbox') ? target.checked : target.value
-        setCheckedStatus(prevChecked => prevChecked = name)
         setFilterByToEdit(prevFilterBy =>
             ({ ...prevFilterBy, [name]: value })
         )
