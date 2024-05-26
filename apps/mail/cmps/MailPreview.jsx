@@ -1,7 +1,7 @@
 const { useState } = React
 const { Link } = ReactRouterDOM
 
-import { eMailService } from '../services/eMailService.js'
+import { eMailService } from '../services/emailService.js'
 import { utilService } from '../../../services/util.service.js'
 
 export function MailPreview({ mail, removeEmail }) {

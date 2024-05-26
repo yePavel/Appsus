@@ -26,20 +26,21 @@ export function NoteList({ notes, onRemove}) {
 
     return (
         <section className="note-list">
-            {notes.map(note => (
-               <Link to={`/note/${note.id}`}>
-                <div key={note.id} className="note">
+        {notes.map(note => (
+            <Link key={note.id} to={`/note/${note.id}`}>
+                <div className="note">
                     <NotePreview note={note} onRemove={onRemove} />
                 </div>
-                </Link>
-            ))}
-            {openNoteId &&(
-                <NoteEdit
-                    noteId={params.noteId}
-                    onClose={closeDialog}
-                />
-            )}
-        </section>
+            </Link>
+        ))}
+        {openNoteId && (
+            <NoteEdit
+                noteId={params.noteId}
+                onClose={closeDialog}
+            />
+        )}
+    </section>
+    
     )
 }
 

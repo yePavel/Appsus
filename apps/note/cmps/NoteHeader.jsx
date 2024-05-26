@@ -1,5 +1,5 @@
 
-export function KeepHeader() {
+export function NoteHeader() {
     return <header className="header">
         <h1 className="header-title">
             Miss keep
