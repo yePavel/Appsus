@@ -1,3 +1,4 @@
+import { NoteSearch } from './NoteSearch.jsx'
 
 export function NoteHeader() {
     return <header className="header">
@@ -7,8 +8,8 @@ export function NoteHeader() {
                 <img src="https://img.icons8.com/?size=100&id=30655&format=png&color=000000" alt="Google Keep Icon" />
             </span>
         </h1>
-        {/* Search engine will be added here in the future */}
-        {/* <SearchBar /> */}
+ 
+        <NoteSearch />
 
         {/* Sidebar menu will be added here in the future */}
         {/* <SidebarMenu /> */}

@@ -99,7 +99,7 @@ function _createNotes() {
             type: 'NoteTxt',
             isPinned: true,
             style: {
-                backgroundColor: '#fff'
+                backgroundColor:'#fff'
             },
             info: {
                 title: 'NoteTxt',

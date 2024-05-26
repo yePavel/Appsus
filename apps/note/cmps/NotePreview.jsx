@@ -5,7 +5,7 @@ export function NotePreview({note, onRemove}) {
         <h3>{note.info.title}</h3>
         <p>{typeof note.info.txt === 'string' ? note.info.txt : ''}</p>
         <span>last update {note.createdAt}</span>
-        <button onClick={() => onRemove(note.id)}  className="close-button">x</button>
+        <button type='button' onClick={() => onRemove(note.id)}  className="close-button">x</button>
     </article>
 
 }

@@ -98,10 +98,7 @@ export function NoteAdd({ onLoad }) {
                         className='note-title'
                     />
                     <Textbox className='note-text' handleChange={handleChange} name='txt' value={note.info.txt} />
-                    <button type='submit' className='save-note-button'>Save</button>
-
-                    {/* <button type='button 'className='save-note-button' onClick={() => onchangeCmpType('color')}>color</button> */}
-
+                    {/* <button type='submit' className='save-note-button'>Save</button> */}
                     <button type='button' className="color-picker-button" onClick={() => onchangeCmpType('color')}>
                         <i className="fas fa-palette"></i>
                     </button>
