@@ -1,7 +1,7 @@
 const { Link } = ReactRouterDOM
 
 export function NotePreview({note, onRemove}) {
-    return <article className="note-preview" style={{ backgroundColor: note.color }}>
+    return <article className="note-preview" style={{ backgroundColor: note.style.backgroundColor }}>
         <h3>{note.info.title}</h3>
         <p>{typeof note.info.txt === 'string' ? note.info.txt : ''}</p>
         <span>last update {note.createdAt}</span>
