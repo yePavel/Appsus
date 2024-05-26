@@ -102,8 +102,8 @@ export function NoteAdd({ onLoad }) {
 
                     {/* <button type='button 'className='save-note-button' onClick={() => onchangeCmpType('color')}>color</button> */}
 
-                    <button type='button' class="color-picker-button" onClick={() => onchangeCmpType('color')}>
-                        <i class="fas fa-palette"></i>
+                    <button type='button' className="color-picker-button" onClick={() => onchangeCmpType('color')}>
+                        <i className="fas fa-palette"></i>
                     </button>
 
                     <DynamicCmp selectedColor={selectedColor} cmpType={cmpType} onSetFooterStyle={onSetFooterStyle} />
