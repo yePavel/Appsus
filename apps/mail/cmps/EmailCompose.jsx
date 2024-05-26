@@ -36,47 +36,50 @@ export function EmailCompose({ toggleCompose, saveSentEmail }) {
         <form className='compose-form' onSubmit={onSaveEmail}>
             <div className='compose-modal'>
                 <button onClick={() => toggleCompose()} className='btn-close-compose'>x</button>
-                <h2>New Message</h2>
+                <p className='sent-email-header'>New Message</p>
 
-                <div className='sent-from'>
-                    <label htmlFor='from'>From</label>
+                <div className='input-area'>
+                    <div className='sent-from'>
+                        <label htmlFor='from'>From</label>
+                        <input
+                            placeholder=''
+                            name='from'
+                            type='text'
+                            id='from'
+                            value={from}
+                            onChange={handleChange}
+                        />
+                    </div>
+
                     <input
-                        placeholder=''
-                        name='from'
+                        placeholder='To'
+                        name='to'
                         type='text'
-                        id='from'
-                        value={from}
+                        id='to'
+                        value={to}
                         onChange={handleChange}
+                        autoComplete='off'
                     />
+
+                    <input
+                        placeholder='Subject'
+                        name='subject'
+                        type='text'
+                        id='subject'
+                        value={subject}
+                        onChange={handleChange}
+                        autoComplete='off'
+                    />
+
+                    <textarea
+                        name='body'
+                        cols='30'
+                        rows='10'
+                        value={bodyTxt}
+                        onChange={handleChange}
+                    ></textarea>
+
                 </div>
-
-                <input
-                    placeholder='To'
-                    name='to'
-                    type='text'
-                    id='to'
-                    value={to}
-                    onChange={handleChange}
-                    autoComplete='off'
-                />
-
-                <input
-                    placeholder='Subject'
-                    name='subject'
-                    type='text'
-                    id='subject'
-                    value={subject}
-                    onChange={handleChange}
-                    autoComplete='off'
-                />
-
-                <textarea
-                    name='body'
-                    cols='30'
-                    rows='10'
-                    value={bodyTxt}
-                    onChange={handleChange}
-                ></textarea>
 
                 <button className='sent-email-btn'>Save</button>
             </div>

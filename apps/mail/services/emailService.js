@@ -4,32 +4,41 @@ import { storageService } from '../../../services/storage.service.js'
 
 const EMAIL_KEY = 'emailsDB'
 const SENT_EMAIL_KEY = 'sentEmailsDB'
-_createEmailsList()
 
 const loggedinUser = {
     email: 'user@appsus.com',
     fullname: 'Mahatma Appsus'
 }
 
+_createEmailsList()
+
+
 export const eMailService = {
     query,
     get,
     save,
-    saveSendEmail
+    remove,
+    saveSendEmail,
+    getFilterFromSearchParams
 }
 
-window.ms = eMailService
-
+window.ems = eMailService
 
 function query(filterBy = {}) {
     return asyncStorageService.query(EMAIL_KEY)
         .then(emails => {
-            if (filterBy.subject) {
-                emails = emails.sort()
+            if (filterBy.txt) {
+                const regExp = new RegExp(filterBy.txt, 'i')
+                emails = emails.filter(email =>
+                    regExp.test(email.from) || regExp.test(email.body) ||
+                    regExp.test(email.subject)
+                )
             }
-
-            if (filterBy.sentAt) {
-                emails = emails.sort()
+            if (filterBy.isRead === 'unread') {
+                emails = emails.filter(email => !email.isRead)
+            }
+            if (filterBy.isRead === 'all') {
+                emails = emails.filter(email => email.id)
             }
 
             return emails
@@ -54,11 +63,21 @@ function save(email) {
     }
 }
 
+function remove(email) {
+    return asyncStorageService.remove(EMAIL_KEY, email)
+}
+
 function saveSendEmail(email) {
     const currEmail = _createEmail(email)
     return asyncStorageService.post(SENT_EMAIL_KEY, currEmail)
 }
 
+function getFilterFromSearchParams(searchParams) {
+    return {
+        txt: searchParams.get('txt') || '',
+        isRead: searchParams.get('isRead') || ''
+    }
+}
 
 // ~~~~~~~~~~~~~~~~~~~~~~ LOCAL FUNC ~~~~~~~~~~~~~~~~
 
@@ -84,7 +103,7 @@ function _setNextPrevMailId(mail) {
 function _createEmailsList() {
     let emailsList = storageService.loadFromStorage(EMAIL_KEY) || []
     if (!emailsList || !emailsList.length) {
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 15; i++) {
             const email = {
                 id: utilService.makeId(),
                 subject: utilService.makeLorem(3),
@@ -93,7 +112,7 @@ function _createEmailsList() {
                 sentAt: utilService.getRandomDate(),
                 removedAt: null,
                 from: `${utilService.getUserEmail()}`,
-                to: 'user@appsus.com'
+                to: loggedinUser.email
             }
             emailsList.push(email)
         }
