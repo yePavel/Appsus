@@ -4,12 +4,15 @@ export const utilService = {
     getRandomIntInclusive,
     getRandomColor,
     padNum,
+    getRandomTimestamp,
+    getUserEmail,
+    getCurrentTime,
     getDayName,
     getMonthName,
-    getRandomDate,
-    getUserEmail,
-    getCurrentTime
+    getYear
 }
+
+window.us = utilService
 
 function makeId(length = 6) {
     var txt = ''
@@ -63,29 +66,6 @@ function getRandomColor() {
     return color
 }
 
-function getRandomDate() {
-    let fullDate = _getFullRandomDate('2020-01-01', '2024-05-22')
-    let newDate
-    if (fullDate.getFullYear() < 2024) newDate = fullDate.getFullYear()
-    else {
-        newDate = getMonthName(fullDate) + ' ' + fullDate.getDate()
-    }
-    return newDate
-}
-
-function getDayName(date, locale = 'en-US') {
-    date = new Date(date)
-    return date.toLocaleDateString(locale, { weekday: 'long' })
-}
-
-
-function getMonthName(date) {
-    const monthNames = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ]
-    return monthNames[date.getMonth()]
-}
-
 function getCurrentTime() {
     const now = new Date()
     const hours = String(now.getHours()).padStart(2, '0')
@@ -94,11 +74,29 @@ function getCurrentTime() {
     return `${hours}:${minutes}`
 }
 
-// ~~~~~~~~~~~~~~~ LOCAL FUNC ~~~~~~~~~~~~~~~~
-
-function _getFullRandomDate(start, end) {
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-    const randomTime = startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime());
-    return new Date(randomTime);
+function getRandomTimestamp(start, end) {
+    const startTimestamp = new Date(start).getTime();
+    const endTimestamp = new Date(end).getTime();
+    const randomTimestamp = new Date(startTimestamp + Math.random() * (endTimestamp - startTimestamp));
+    return randomTimestamp;
 }
+
+function getDayName(date, locale = 'en-US') {
+    date = new Date(date)
+    return date.toLocaleDateString(locale, { weekday: 'long' })
+}
+
+function getMonthName(date) {
+    const monthName = new Date(date)
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ]
+    return monthNames[monthName.getMonth()]
+}
+
+function getYear(date) {
+    date = new Date(date);
+    return date.getFullYear();
+}
+
+

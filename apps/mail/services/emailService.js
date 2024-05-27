@@ -12,14 +12,14 @@ const loggedinUser = {
 
 _createEmailsList()
 
-
 export const eMailService = {
     query,
     get,
     save,
     remove,
     saveSendEmail,
-    getFilterFromSearchParams
+    getFilterFromSearchParams,
+    getEmailsByStatus
 }
 
 window.ems = eMailService
@@ -37,10 +37,25 @@ function query(filterBy = {}) {
             if (filterBy.isRead === 'unread') {
                 emails = emails.filter(email => !email.isRead)
             }
-            if (filterBy.isRead === 'all') {
+            else if (filterBy.isRead === 'all') {
                 emails = emails.filter(email => email.id)
             }
+            if (filterBy.subject) {
+                emails = _sortBySubject(emails, 'subject')
+            }
+            if (filterBy.sentAt === true || filterBy.sentAt === false) {
+                emails = _sortByDate(emails, 'sentAt', filterBy.sentAt)
+            }
 
+            return emails
+        })
+}
+
+function getEmailsByStatus(filterBy = {}) {
+    return asyncStorageService.query(SENT_EMAIL_KEY)
+        .then(emails => {
+            if (filterBy === 'sent')
+                emails = emails.filter(email => email.id)
             return emails
         })
 }
@@ -51,7 +66,6 @@ function get(mailId) {
             // mail = _setNextPrevMailId(mail)
             return mail
         })
-
 }
 
 function save(email) {
@@ -74,12 +88,35 @@ function saveSendEmail(email) {
 
 function getFilterFromSearchParams(searchParams) {
     return {
+        status: 'inbox',
         txt: searchParams.get('txt') || '',
-        isRead: searchParams.get('isRead') || ''
+        isRead: searchParams.get('isRead') || 'all',
+        subject: searchParams.get('subject') || '',
+        sentAt: searchParams.get('sentAt') || 'true',
     }
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~ LOCAL FUNC ~~~~~~~~~~~~~~~~
+
+function _sortBySubject(emails, keyWord) {
+    return emails.sort((a, b) => a[keyWord].localeCompare(b[keyWord], 'en', { sensitivity: 'base' }))
+}
+
+function _sortByDate(emails, keyWord, dir) {
+    if (dir)
+        return emails.sort((a, b) => {
+            const dateA = new Date(a[keyWord])
+            const dateB = new Date(b[keyWord])
+            return dateB - dateA
+        })
+    else {
+        return emails.sort((a, b) => {
+            const dateA = new Date(a[keyWord])
+            const dateB = new Date(b[keyWord])
+            return dateA - dateB
+        })
+    }
+}
 
 function _createEmail(emailToSave) {
     return {
@@ -109,7 +146,8 @@ function _createEmailsList() {
                 subject: utilService.makeLorem(3),
                 body: 'Would love to catch up sometimes',
                 isRead: false,
-                sentAt: utilService.getRandomDate(),
+                sentAt: utilService.getRandomTimestamp('2000-01-01T00:00:00Z', '2024-05-26T23:59:59Z')
+                    .toISOString().slice(0, 10),
                 removedAt: null,
                 from: `${utilService.getUserEmail()}`,
                 to: loggedinUser.email

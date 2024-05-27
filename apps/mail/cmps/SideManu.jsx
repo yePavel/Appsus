@@ -1,15 +1,25 @@
-const { useEffect } = React
+const { useEffect, useState } = React
 
-export function SideMenu({ unreadMails, toggleCompose }) {
+export function SideMenu({ unreadMails, toggleCompose, filterBy, onFilter }) {
+    const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
 
-    return <div>
+    useEffect(() => {
+        onFilter(filterByToEdit)
+    }, [filterByToEdit])
+
+    function handleChange(newLabel) {
+        setFilterByToEdit({ ...filterByToEdit, status: newLabel })
+    }
+
+    return <div className='side-menu-container'>
         <button className='compose-btn' onClick={() => toggleCompose()}>
             <img className='icon' src="/assets/img/mail-icons/pencil.png" alt="" />
             Compose
         </button>
 
         <aside className='side-menu'>
-            <p>
+            <p className={`${filterByToEdit.status === 'inbox' ? 'active-label' : ''}`}
+                onClick={() => handleChange('inbox')}>
                 <img className='icon' src="/assets/img/mail-icons/inbox.png" alt="" />
                 Inbox
                 {unreadMails > 0 && <span className='unread-counter'>{unreadMails}</span>}
@@ -22,7 +32,8 @@ export function SideMenu({ unreadMails, toggleCompose }) {
                 <img className='icon' src="/assets/img/mail-icons/draft.png" alt="" />
                 Draft
             </p>
-            <p>
+            <p className={`${filterByToEdit.status === 'sent' ? 'active-label' : ''}`}
+                onClick={() => handleChange('sent')}>
                 <img className='icon' src="/assets/img/mail-icons/sent.png" alt="" />
                 Sent
             </p>
