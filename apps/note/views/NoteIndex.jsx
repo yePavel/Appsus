@@ -1,16 +1,20 @@
 const { useState, useEffect } = React
+const { useParams, useNavigate } = ReactRouter
 
 import { noteService } from './../services/note.service.js'
 
 import { NoteList } from './../cmps/NoteList.jsx'
 import { NoteHeader } from './../cmps/NoteHeader.jsx'
 import { NoteAdd } from './../cmps/NoteAdd.jsx'
+import { NoteFilter } from './../cmps/NoteFilter.jsx'
 
 
 
 export function NoteIndex() {
     const [notes, setNotes] = useState([])
-    
+    const [isSearching, setIsSearching] = useState(false)
+    const params = useParams()
+
     useEffect(() => {
         loadNotes()
     }, [])
@@ -21,7 +25,7 @@ export function NoteIndex() {
         })
 
     }
-  
+
     function removeNote(noteId) {
         noteService.remove(noteId)
             .then(() => {
@@ -35,9 +39,11 @@ export function NoteIndex() {
 
     }
 
+
     return <section className="note-index">
-        <NoteHeader />
-        <NoteAdd onLoad={loadNotes} />
-        <NoteList notes={notes} onRemove={removeNote} /> 
+        <NoteHeader setIsSearching={setIsSearching} />
+        {isSearching && <NoteFilter />}
+        {!isSearching && <NoteAdd onLoad={loadNotes} />}
+        {!isSearching && <NoteList notes={notes} onRemove={removeNote} />}
     </section>
 }
