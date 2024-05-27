@@ -1,5 +1,6 @@
 .search-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(300px, 400px) minmax(300px, 1fr);
     flex-direction: column;
     gap: 5px;
     grid-column: 2/-1;
@@ -26,10 +27,10 @@
     box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
     gap: 5px;
     font-size: 14px;
+    grid-column: 1/-1;
 }
 
 .radio-inputs .radio {
-    flex: 1 1 auto;
     text-align: center;
     padding-inline-start: 5px;
 }
@@ -40,15 +41,76 @@
 
 .radio-inputs .radio .name {
     display: flex;
+    min-width: 200px;
     cursor: pointer;
     align-items: center;
     border: none;
     padding: .5rem 0;
-    color: rgba(51, 65, 85, 1);
 }
 
 .radio-inputs .radio input:checked+.name {
     color: var(--mail-send-btn-bg);
     border-bottom: 2px solid var(--mail-send-btn-bg);
     font-weight: 600;
+}
+
+/* ~~~sorting container~~~~~ */
+
+.sorting-container {
+    display: flex;
+    gap: 5px;
+    grid-column: 2/-1;
+}
+
+.sorting-container .label {
+    text-align: center;
+    padding-inline-start: 5px;
+    background-color: aqua;
+
+}
+
+.sorting-container input {
+    display: none;
+
+}
+
+.sorting-container .sort-by-subject {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;
+    background-color: rgb(224, 224, 224);
+    cursor: pointer;
+    padding: 8px 4px;
+    border-radius: 30px;
+}
+
+.sorting-container .sort-by-sentAt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;
+    background-color: rgb(224, 224, 224);
+    cursor: pointer;
+    padding: 8px 4px;
+    border-radius: 30px;
+}
+
+.sorting-container .arrow {
+    scale: 1.2;
+    transition: .2s;
+    margin-right: 4px;
+}
+
+.sorting-container input:checked+.sort-by-subject,
+.sorting-container input:checked+.sort-by-sentAt {
+    background-color: var(--mail-label-active);
+    font-weight: 600;
+}
+
+
+.sorting-container input:checked+.sort-by-subject .arrow,
+.sorting-container input:checked+.sort-by-sentAt .arrow {
+    transform: rotate(-180deg);
+
 }

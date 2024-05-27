@@ -6,7 +6,6 @@ export function EmailCompose({ toggleCompose, saveSentEmail }) {
     const [searchParams, setSearchParams] = useSearchParams({ compose: 'new' })
     const [composeStatus, setComposeStatus] = useState(searchParams)
 
-    console.log('searchParams:', searchParams.length)
 
     const [newEmail, setNewEmail] = useState({
         from: 'your mail',
@@ -16,7 +15,7 @@ export function EmailCompose({ toggleCompose, saveSentEmail }) {
     })
 
     const { from, to, subject, bodyTxt } = newEmail
-    console.log('newEmail:', newEmail)
+
     useEffect(() => {
         setSearchParams(composeStatus)
     }, [])
@@ -72,13 +71,12 @@ export function EmailCompose({ toggleCompose, saveSentEmail }) {
                     />
 
                     <textarea
-                        name='body'
+                        name='bodyTxt'
                         cols='30'
-                        rows='10'
+                        rows='15'
                         value={bodyTxt}
                         onChange={handleChange}
                     ></textarea>
-
                 </div>
 
                 <button className='sent-email-btn'>Save</button>

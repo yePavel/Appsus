@@ -1,8 +1,7 @@
 .email-preview-container {
     display: flex;
     position: relative;
-    justify-content: space-between;
-    position: relative;
+    /* justify-content: space-between; */
     flex-direction: row;
 }
 
@@ -14,7 +13,7 @@
 .mail-preview {
     display: flex;
     flex-direction: row;
-    padding: 10px;
+    padding: 5px;
     gap: 20px;
 }
 
@@ -39,7 +38,7 @@
 .email-actions .icon {
     width: 15px;
     border-radius: 30px;
-    padding: 10px;
+    padding: 5px;
     margin-block-start: 4px;
 }
 

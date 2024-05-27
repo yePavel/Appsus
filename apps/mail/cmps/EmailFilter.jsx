@@ -16,6 +16,8 @@ export function EmailFilter({ filterBy, onFilter }) {
         onFilter(filterByToEdit)
     }, [filterByToEdit])
 
+    console.log('filterByToEdit:', filterByToEdit)
+
     return <div className='search-container'>
         <input
             type="text"
@@ -25,21 +27,29 @@ export function EmailFilter({ filterBy, onFilter }) {
             onChange={handleChange}
         />
 
-        <label htmlFor="subject">
-            <input id='subject' type="checkbox"
-                name='subject'
-                className='sort-by-subject'
-                onChange={handleChange} />
-            <span>Sort by subject</span>
-        </label>
+        <div className='sorting-container'>
+            <label htmlFor="subject">
+                <input id='subject' type="checkbox"
+                    name='subject'
 
-        <label htmlFor="sentAt">
-            <input id='sentAt' type="checkbox"
-                name='sentAt'
-                className='sort-by-sentAt'
-                onChange={handleChange} />
-            <span>Sort by date</span>
-        </label>
+                    onChange={handleChange} />
+                <span className='sort-by-subject'>
+                    <span className="arrow">^</span>
+                    Subject
+                </span>
+            </label>
+
+            <label htmlFor="sentAt">
+                <input id='sentAt' type="checkbox"
+                    name='sentAt'
+
+                    onChange={handleChange} />
+                <span className='sort-by-sentAt'>
+                    <span className="arrow">^</span>
+                    Date
+                </span>
+            </label>
+        </div>
 
         <div className='radio-inputs'>
             <label className="radio">
@@ -48,7 +58,7 @@ export function EmailFilter({ filterBy, onFilter }) {
                     type="radio"
                     name="isRead"
                     onChange={handleChange} />
-                <span className="name">All</span>
+                <span className={`name`}>All</span>
             </label>
 
             <label className="radio">
@@ -57,7 +67,7 @@ export function EmailFilter({ filterBy, onFilter }) {
                     type="radio"
                     name="isRead"
                     onChange={handleChange} />
-                <span className="name">Unread</span>
+                <span className={`name`}>Unread</span>
             </label>
 
         </div>
