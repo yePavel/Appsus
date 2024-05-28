@@ -1,51 +1,49 @@
-const { useState, useEffect, } = React
-const { Link } = ReactRouterDOM
+const { useState ,useEffect} = React
 const { useNavigate } = ReactRouter
+const { Link } = ReactRouterDOM
 
-
-
-export function NoteHeader({ setIsSearching , filterByToEdit}) {
+export function NoteHeader({ filterBy, onFilter, onLoad }) {
     const navigate = useNavigate()
+    const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
 
-    const [txt, setTxt] = useState('')
-
-
-    function handleFocus() {
-        setIsSearching(true)
-    }
-
-    function handle() {
-        setIsSearching(false)
-        navigate(`/note`)
-
-    }
+    useEffect(() => {
+       
+        onFilter(filterByToEdit)
+        onLoad()
+   
+    }, [filterByToEdit])
 
     function handleChange({ target }) {
-        const { name, type, value } = target;
-        const inputValue = type === 'number' ? +value : value
-        setTxt(inputValue)
-        console.log('setTxt', txt);
+        const { name, type } = target
+        const value = (type === 'number') ? +target.value : target.value
+        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, [name]: value }))
     }
 
-    return <header className="header">
-        <div className="header-title" onClick={handle}>
+    function handleFocus() {
+        navigate('/note/search')
+    }
+
+    return <header className="header" >
+        <div className="header-title" >
             <img src="https://img.icons8.com/?size=100&id=30655&format=png&color=000000" alt="Google Keep Logo" className="keep-icon" />
-            <h1 className="title-text">Keep</h1>
+            <h1 onClick={() => navigate(`/note`)} className="title-text">Keep</h1>
         </div>
 
-        <section className="search-container" onClick={handleFocus}>
+        <section className="search-container" >
             <div className="search-active">
-                <Link to={`/note/search`}>
+        
                     <input
-                        value={txt}
+                        value={filterByToEdit.txt}
                         name="txt"
                         type="search"
                         className="search-input"
-                        onChange={ handleChange}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
                         placeholder='Search'
                         autoFocus
                     />
-                </Link>
+           
+             
             </div>
         </section>
 

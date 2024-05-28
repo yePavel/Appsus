@@ -6,13 +6,14 @@ const { useParams, useNavigate } = ReactRouter
 import { NotePreview } from './NotePreview.jsx'
 import { NoteEdit } from './NoteEdit.jsx'
 
-export function NoteList({ notes, onRemove}) {
+export function NoteList({ notes, onRemove ,onLoad}) {
     const navigate = useNavigate()
     const params = useParams()
     const [openNoteId, setOpenNoteId] = useState(null)
+ 
 
     useEffect(() => {
-        if (params.noteId) {
+        if (params.noteId && params.noteId !== 'search') {
             setOpenNoteId(params.noteId)
         } else {
             setOpenNoteId(null)
@@ -20,8 +21,10 @@ export function NoteList({ notes, onRemove}) {
     }, [params])
 
     function closeDialog() {
-        navigate(`/note`)
         setOpenNoteId(null)
+        navigate(`/note`)
+        onLoad()
+        
     }
 
     return (

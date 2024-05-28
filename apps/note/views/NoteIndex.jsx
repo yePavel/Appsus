@@ -14,16 +14,28 @@ export function NoteIndex() {
     const [notes, setNotes] = useState([])
     const [isSearching, setIsSearching] = useState(false)
     const params = useParams()
+    const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
+
 
     useEffect(() => {
-        loadNotes()
-    }, [])
+        if (params.noteId === 'search') {
+            setIsSearching(true)
+        } else {
+            setIsSearching(false)
+        }
+    }, [params.noteId])
+
+
+    useEffect(() => {
+        loadNotes(filterBy)
+    }, [filterBy])
 
     function loadNotes() {
-        noteService.query().then(notes => {
-            setNotes(notes)
-        })
-
+        noteService.query(filterBy)
+            .then(notes => {
+                setNotes(notes)
+            })
+            .catch(err => console.error('Error fetching notes:', err))
     }
 
     function removeNote(noteId) {
@@ -39,11 +51,14 @@ export function NoteIndex() {
 
     }
 
+    function onSetFilterBy(newFilter) {
+        setFilterBy({ ...newFilter });
+    }
 
     return <section className="note-index">
-        <NoteHeader setIsSearching={setIsSearching} />
-        {isSearching && <NoteFilter />}
+        <NoteHeader filterBy={filterBy} onFilter={onSetFilterBy} onLoad={loadNotes} />
         {!isSearching && <NoteAdd onLoad={loadNotes} />}
-        {!isSearching && <NoteList notes={notes} onRemove={removeNote} />}
+        {<NoteList notes={notes} onRemove={removeNote} onLoad={loadNotes} />}
     </section>
 }
+
