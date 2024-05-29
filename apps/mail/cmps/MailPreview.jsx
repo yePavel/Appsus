@@ -6,12 +6,9 @@ import { utilService } from '../../../services/util.service.js'
 
 export function MailPreview({ mail, removeEmail, filterBy }) {
     const [currMail, setCurrMail] = useState(mail)
-    console.log('filterBy:', filterBy)
 
     function onSetIsRead() {
         setCurrMail(() => {
-            console.log('filterBy.status:', filterBy.status)
-            console.log('currMail:', currMail)
             let updatedMail
             if (filterBy.status === 'inbox')
                 updatedMail = { ...currMail, isRead: true }
@@ -35,8 +32,10 @@ export function MailPreview({ mail, removeEmail, filterBy }) {
             <Link to={`/mail/${mail.id}`}>
                 <div className={`mail-preview`}
                     onClick={() => onSetIsRead()}>
-                    ⭐
-                    <p>{currMail.from}</p>
+                    <div className='mail-prev-details'>
+                        <span>⭐</span>
+                        <p>{currMail.from}</p>
+                    </div>
                     <p>{currMail.subject}</p>
                     <p>{getDateTime(currMail.sentAt)}</p>
 

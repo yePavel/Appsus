@@ -62,6 +62,7 @@ export function MailIndex() {
     return <div className='emails-container'>
         <img className='main-icon' src="/assets/img/mail-icons/gmail-icon.png" alt="gmail-icon" />
         <EmailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
+
         <SideMenu unreadMails={emailsCounter} toggleCompose={onToggleCompose}
             filterBy={filterBy} onFilter={onSetFilterBy} />
 

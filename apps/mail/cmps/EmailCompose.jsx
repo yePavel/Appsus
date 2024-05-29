@@ -1,24 +1,26 @@
+import { eMailService } from "../services/emailService"
 
 const { useState, useEffect } = React
+const { useNavigate } = ReactRouter
 const { useSearchParams } = ReactRouterDOM
 
 export function EmailCompose({ toggleCompose, saveSentEmail }) {
     const [searchParams, setSearchParams] = useSearchParams({ compose: 'new' })
     const [composeStatus, setComposeStatus] = useState(searchParams)
-
+    const navigate = useNavigate()
 
     const [newEmail, setNewEmail] = useState({
-        from: 'your mail',
+        from: eMailService.getLoggedInUser().email,
         to: '',
         subject: '',
-        bodyTxt: ''
+        body: ''
     })
 
-    const { from, to, subject, bodyTxt } = newEmail
+    const { from, to, subject, body } = newEmail
 
     useEffect(() => {
         setSearchParams(composeStatus)
-    }, [])
+    }, [newEmail])
 
     function handleChange({ target }) {
         const { value, name: prop } = target
@@ -29,6 +31,7 @@ export function EmailCompose({ toggleCompose, saveSentEmail }) {
         ev.preventDefault()
         saveSentEmail(newEmail)
         toggleCompose()
+        navigate('/mail')
     }
 
     return <section className='compose-container'>
@@ -71,15 +74,15 @@ export function EmailCompose({ toggleCompose, saveSentEmail }) {
                     />
 
                     <textarea
-                        name='bodyTxt'
+                        name='body'
                         cols='30'
                         rows='15'
-                        value={bodyTxt}
+                        value={body}
                         onChange={handleChange}
                     ></textarea>
                 </div>
 
-                <button className='sent-email-btn'>Save</button>
+                <button className='sent-email-btn'>Send</button>
             </div>
         </form>
     </section>
