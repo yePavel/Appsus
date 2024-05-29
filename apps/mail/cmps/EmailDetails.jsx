@@ -1,16 +1,16 @@
 
-import { eMailService } from "../../mail/services/eMailService.js"
+import { eMailService } from "../../mail/services/emailService.js"
 
 const { useEffect, useState } = React
 const { Link, useParams } = ReactRouterDOM
 
-export function EmailDetails({ onDisplayUnreadEmailsCnt, removeEmail }) {
+export function EmailDetails({ onDisplayUnreadEmailsCnt, removeEmail, filterBy }) {
     const [email, setEmail] = useState({})
     const params = useParams()
 
     useEffect(() => {
         if (!params.emailId) return
-        eMailService.get(params.emailId)
+        eMailService.get(params.emailId, filterBy)
             .then(email => {
                 setEmail(email)
                 onDisplayUnreadEmailsCnt()

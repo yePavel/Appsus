@@ -20,25 +20,17 @@ export function MailIndex() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (filterBy.status === 'inbox') {
-            setSearchParams(filterBy)
-            eMailService.query(filterBy)
-                .then(emailsList => {
-                    setEmails(emailsList)
-                })
-        }
-        else if (filterBy.status === 'sent') {
-            setSearchParams(filterBy)
-            eMailService.getEmailsByStatus(filterBy)
-                .then(emailsList => {
-                    setEmails(emailsList)
-                })
-        }
-        onDisplayUnreadEmailsCnt()
+        setSearchParams(filterBy)
+        eMailService.query(filterBy)
+            .then(emailsList => {
+                setEmails(emailsList)
+                onDisplayUnreadEmailsCnt()
+            })
     }, [emailsCounter, filterBy])
 
     function onDisplayUnreadEmailsCnt() {
-        eMailService.query()
+        if (filterBy.status === 'sent') return
+        eMailService.query(filterBy)
             .then(emailsList => {
                 let counter = emailsList.filter(email => !email.isRead).length
                 setEmailsCounter(prevCounter => prevCounter = counter)
@@ -50,12 +42,12 @@ export function MailIndex() {
     }
 
     function onSaveSentEmail(sentEmail) {
-        eMailService.saveSendEmail(sentEmail)
+        eMailService.saveSendEmail(sentEmail, filterBy)
     }
 
     function onRemoveEmail(emailId, ev) {
         ev.stopPropagation()
-        eMailService.remove(emailId)
+        eMailService.remove(emailId, filterBy)
             .then(() => {
                 setEmails(prevEmails => prevEmails.filter(email => email.id !== emailId))
                 navigate('/mail')
@@ -73,13 +65,13 @@ export function MailIndex() {
         <SideMenu unreadMails={emailsCounter} toggleCompose={onToggleCompose}
             filterBy={filterBy} onFilter={onSetFilterBy} />
 
-        {params.emailId && <EmailDetails unreadMails={emailsCounter}
+        {params.emailId && <EmailDetails unreadMails={emailsCounter} filterBy={filterBy}
             onDisplayUnreadEmailsCnt={onDisplayUnreadEmailsCnt} removeEmail={onRemoveEmail} />}
 
         {!params.emailId &&
             <table>
                 {emails.length > 0 && <MailList
-                    emails={emails} removeEmail={onRemoveEmail} />}
+                    emails={emails} removeEmail={onRemoveEmail} filterBy={filterBy} />}
             </table>}
 
         {composeFlag && <EmailCompose toggleCompose={onToggleCompose} saveSentEmail={onSaveSentEmail} />}

@@ -19,13 +19,12 @@ export const eMailService = {
     remove,
     saveSendEmail,
     getFilterFromSearchParams,
-    getEmailsByStatus
 }
 
 window.ems = eMailService
 
 function query(filterBy = {}) {
-    return asyncStorageService.query(EMAIL_KEY)
+    return asyncStorageService.query(_getCurrDBKey(filterBy.status))
         .then(emails => {
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
@@ -36,8 +35,9 @@ function query(filterBy = {}) {
             }
             if (filterBy.isRead === 'unread') {
                 emails = emails.filter(email => !email.isRead)
+
             }
-            else if (filterBy.isRead === 'all') {
+            if (filterBy.isRead === 'all') {
                 emails = emails.filter(email => email.id)
             }
             if (filterBy.subject) {
@@ -51,34 +51,27 @@ function query(filterBy = {}) {
         })
 }
 
-function getEmailsByStatus(filterBy = {}) {
-    return asyncStorageService.query(SENT_EMAIL_KEY)
-        .then(emails => {
-            if (filterBy === 'sent')
-                emails = emails.filter(email => email.id)
-            return emails
-        })
-}
 
-function get(mailId) {
-    return asyncStorageService.get(EMAIL_KEY, mailId)
+function get(mailId, filterBy) {
+    return asyncStorageService.get(_getCurrDBKey(filterBy.status), mailId)
         .then(mail => {
             // mail = _setNextPrevMailId(mail)
             return mail
         })
 }
 
-function save(email) {
+function save(email, filterBy) {
+
     if (email.id) {
-        return asyncStorageService.put(EMAIL_KEY, email)
+        return asyncStorageService.put(_getCurrDBKey(filterBy.status), email)
     }
     else {
-        return asyncStorageService.post(EMAIL_KEY, email)
+        return asyncStorageService.post(_getCurrDBKey(filterBy.status), email)
     }
 }
 
-function remove(email) {
-    return asyncStorageService.remove(EMAIL_KEY, email)
+function remove(email, filterBy) {
+    return asyncStorageService.remove(_getCurrDBKey(filterBy.status), email)
 }
 
 function saveSendEmail(email) {
@@ -88,7 +81,7 @@ function saveSendEmail(email) {
 
 function getFilterFromSearchParams(searchParams) {
     return {
-        status: 'inbox',
+        status: searchParams.get('status') || 'inbox',
         txt: searchParams.get('txt') || '',
         isRead: searchParams.get('isRead') || 'all',
         subject: searchParams.get('subject') || '',
@@ -97,6 +90,14 @@ function getFilterFromSearchParams(searchParams) {
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~ LOCAL FUNC ~~~~~~~~~~~~~~~~
+
+function _getCurrDBKey(filterBy) {
+    var keyDB = ''
+    if (filterBy === '' || filterBy === 'inbox')
+        keyDB = 'emailsDB'
+    else if (filterBy === 'sent') keyDB = 'sentEmailsDB'
+    return keyDB
+}
 
 function _sortBySubject(emails, keyWord) {
     return emails.sort((a, b) => a[keyWord].localeCompare(b[keyWord], 'en', { sensitivity: 'base' }))

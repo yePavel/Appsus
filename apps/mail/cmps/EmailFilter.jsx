@@ -16,9 +16,7 @@ export function EmailFilter({ filterBy, onFilter }) {
         onFilter(filterByToEdit)
     }, [filterByToEdit])
 
-    console.log('filterByToEdit:', filterByToEdit)
-
-    return <div className='search-container'>
+    return <div className='email-search-container'>
         <input
             type="text"
             name='txt'

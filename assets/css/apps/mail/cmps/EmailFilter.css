@@ -1,4 +1,4 @@
-.search-container {
+.email-search-container {
     display: grid;
     grid-template-columns: minmax(300px, 400px) minmax(300px, 1fr);
     flex-direction: column;

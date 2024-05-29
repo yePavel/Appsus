@@ -11,6 +11,7 @@
 
 .compose-btn {
     display: flex;
+    grid-row: 1/2;
     background-color: var(--mail-compose-bg);
     border-radius: 24px;
     width: 120px;
