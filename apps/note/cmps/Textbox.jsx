@@ -1,7 +1,12 @@
-
-export function Textbox({ handleChange,name,txt }) {
+const {  useEffect } = React
+export function Textbox({ handleChange,name,txt,originalTextValue }) {
 
     function onSetTxt({target}) {
+
+        if(originalTextValue === '')
+            {
+                txt=''
+            }
         const txt = target.value
         handleChange({ target: { name: 'txt', value: txt, type: 'text' } })
     }

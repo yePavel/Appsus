@@ -19,10 +19,13 @@ export const noteService = {
 
 }
 
-function query() {
+function query(filterBy = {}) {
     return asyncStorageService.query(NOTE_KEY)
         .then(notes => {
-
+            if (filterBy.txt) {
+                const regExp = new RegExp(filterBy.txt, 'i');
+                notes = notes.filter(note => regExp.test(note.info.title) || regExp.test(note.info.txt));
+            }
             return notes
         })
 }
@@ -46,12 +49,8 @@ function save(note) {
         return asyncStorageService.post(NOTE_KEY, note)
     }
 }
-function saveNewNote(note){
+function saveNewNote(note) {
     return asyncStorageService.post(NOTE_KEY, note)
-}
-
-function getDefaultFilter(filterBy = { txt: '' }) {
-    return { txt: filterBy.txt }
 }
 
 function getFilterFromSearchParams(searchParams) {
@@ -66,7 +65,7 @@ function updateNote(note, newTxt) {
     console.log('note after from service:', note)
     return Promise.resolve(note)
 }
-function getEmptyNote(title = '',txt = '') {
+function getEmptyNote(title = '', txt = '') {
     return {
         id: utilService.makeId(),
         createdAt: utilService.getCurrentTime(),
@@ -82,6 +81,9 @@ function getEmptyNote(title = '',txt = '') {
     }
 }
 
+function getDefaultFilter(filterBy = { txt: '', title: '' }) {
+    return { txt: filterBy.txt, title: filterBy.title }
+}
 
 
 
@@ -99,12 +101,12 @@ function _createNotes() {
             type: 'NoteTxt',
             isPinned: true,
             style: {
-                backgroundColor:'#fff'
+                backgroundColor: '#fff'
             },
             info: {
                 title: 'NoteTxt',
                 txt: 'Fullstack Me Baby!'
-            
+
             }
         }
         notes.push(note)
