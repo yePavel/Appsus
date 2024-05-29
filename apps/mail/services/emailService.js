@@ -5,11 +5,6 @@ import { storageService } from '../../../services/storage.service.js'
 const EMAIL_KEY = 'emailsDB'
 const SENT_EMAIL_KEY = 'sentEmailsDB'
 
-const loggedinUser = {
-    email: 'user@appsus.com',
-    fullname: 'Mahatma Appsus'
-}
-
 _createEmailsList()
 
 export const eMailService = {
@@ -19,6 +14,7 @@ export const eMailService = {
     remove,
     saveSendEmail,
     getFilterFromSearchParams,
+    getLoggedInUser
 }
 
 window.ems = eMailService
@@ -51,6 +47,12 @@ function query(filterBy = {}) {
         })
 }
 
+function getLoggedInUser() {
+    return {
+        email: 'user@appsus.com',
+        fullname: 'Mahatma Appsus'
+    }
+}
 
 function get(mailId, filterBy) {
     return asyncStorageService.get(_getCurrDBKey(filterBy.status), mailId)
@@ -151,7 +153,7 @@ function _createEmailsList() {
                     .toISOString().slice(0, 10),
                 removedAt: null,
                 from: `${utilService.getUserEmail()}`,
-                to: loggedinUser.email
+                to: getLoggedInUser().email
             }
             emailsList.push(email)
         }

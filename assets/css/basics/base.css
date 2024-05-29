@@ -26,6 +26,11 @@ button:hover {
     cursor: pointer;
 }
 
+table {
+    height: fit-content;
+}
+
+tr,
 td {
     padding: 0;
 }

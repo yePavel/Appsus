@@ -1,31 +1,33 @@
 .email-preview-container {
-    display: flex;
     position: relative;
-    /* justify-content: space-between; */
-    flex-direction: row;
 }
 
 .email-preview-container:hover .email-actions {
     display: block;
 }
 
-
 .mail-preview {
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
     padding: 5px;
-    gap: 20px;
 }
 
 .mail-preview p {
     margin: 0;
-    padding: 0;
+}
+
+.mail-preview .mail-prev-details {
+    display: flex;
+    justify-content: space-between;
+    padding-inline-end: 10px;
+    gap: 30px;
 }
 
 .email-actions {
     position: absolute;
-    right: 5px;
+    right: 15px;
     gap: 3px;
+    bottom: 0;
     display: none;
 }
 
