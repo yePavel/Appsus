@@ -6,11 +6,18 @@ import { utilService } from '../../../services/util.service.js'
 
 export function MailPreview({ mail, removeEmail, filterBy }) {
     const [currMail, setCurrMail] = useState(mail)
+    console.log('filterBy:', filterBy)
 
     function onSetIsRead() {
         setCurrMail(() => {
-            console.log('updatedMail:', updatedMail)
-            const updatedMail = { ...currMail, isRead: true }
+            console.log('filterBy.status:', filterBy.status)
+            console.log('currMail:', currMail)
+            let updatedMail
+            if (filterBy.status === 'inbox')
+                updatedMail = { ...currMail, isRead: true }
+            else
+                updatedMail = { ...currMail, isRead: false }
+
             eMailService.save(updatedMail, filterBy)
         })
     }
@@ -29,14 +36,14 @@ export function MailPreview({ mail, removeEmail, filterBy }) {
                 <div className={`mail-preview`}
                     onClick={() => onSetIsRead()}>
                     ⭐
-                    <p>{mail.from}</p>
-                    <p>{mail.subject}</p>
-                    <p>{getDateTime(mail.sentAt)}</p>
+                    <p>{currMail.from}</p>
+                    <p>{currMail.subject}</p>
+                    <p>{getDateTime(currMail.sentAt)}</p>
 
                 </div>
             </Link>
             <div className='email-actions'>
-                <button onClick={(ev) => removeEmail(mail.id, ev)}>
+                <button onClick={(ev) => removeEmail(currMail.id, ev)}>
                     <img className='icon' src="/assets/img/mail-icons/trash.png" alt="" />
                 </button>
             </div>
