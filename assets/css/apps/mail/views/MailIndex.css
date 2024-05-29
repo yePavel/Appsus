@@ -25,7 +25,6 @@
 
 .nav-main-icon {
     display: block;
-    grid-row: 1/2;
     grid-column: 1/2;
     margin-inline-start: 0;
     cursor: pointer;
