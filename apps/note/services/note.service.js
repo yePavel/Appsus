@@ -4,18 +4,21 @@ import { utilService } from '../../../services/util.service.js'
 import { asyncStorageService } from '../../../services/async-storage.service.js'
 
 const NOTE_KEY = 'noteDB'
-_createNotes()
+const NOTE_TRASH_KEY = 'note_trashDB'
 
+_createNotes()
 export const noteService = {
     query,
     get,
     remove,
     save,
+    move,
     getDefaultFilter,
     getFilterFromSearchParams,
     updateNote,
     getEmptyNote,
     saveNewNote,
+    noteTrash
 
 }
 
@@ -38,8 +41,13 @@ function get(noteId) {
         })
 }
 
-function remove(noteId) {
-    return asyncStorageService.remove(NOTE_KEY, noteId)
+function remove(noteId,Storage) {
+    if(Storage === NOTE_KEY){
+        return asyncStorageService.remove(NOTE_KEY, noteId) 
+    }
+    else if(Storage === NOTE_TRASH_KEY){
+       return asyncStorageService.remove(NOTE_TRASH_KEY, noteId) 
+    }
 }
 
 function save(note) {
@@ -71,6 +79,7 @@ function getEmptyNote(title = '', txt = '') {
         createdAt: utilService.getCurrentTime(),
         type: 'NoteTxt',
         isPinned: false,
+        isRemoved: false,
         style: {
             backgroundColor: '#fff'
         },
@@ -85,6 +94,22 @@ function getDefaultFilter(filterBy = { txt: '', title: '' }) {
     return { txt: filterBy.txt, title: filterBy.title }
 }
 
+function move(noteId) {
+    let notes = storageService.loadFromStorage(NOTE_TRASH_KEY) || []
+
+    return get(noteId)
+        .then(note => {
+            notes.push(note)
+            storageService.saveToStorage(NOTE_TRASH_KEY, notes)
+            return remove(noteId,'noteDB').then(() => note) 
+        })
+}
+
+function noteTrash(){
+    return asyncStorageService.query(NOTE_TRASH_KEY)
+    .then(notes => notes)
+  
+}
 
 
 //privet function 
@@ -100,6 +125,7 @@ function _createNotes() {
             createdAt: utilService.getCurrentTime(),
             type: 'NoteTxt',
             isPinned: true,
+            isRemoved: false,
             style: {
                 backgroundColor: '#fff'
             },

@@ -20,9 +20,7 @@ export function ColorInput({selectedColor, onSetFooterStyle }) {
         const newStyle = { backgroundColor: color }
         onSetFooterStyle(newStyle)
     }
-    console.log('selectedColor',selectedColor)
-
-
+    
     return (
         <section className="color-input">
             <div className="items-container">

@@ -12,15 +12,15 @@ export function NoteEdit({ noteId, onClose }) {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (noteId && noteId !== 'search') {
-            noteService.get(noteId).then(setNote);
+        if (noteId && noteId !== 'search' && noteId !== 'trash' ) {
+            noteService.get(noteId).then(setNote)
         }
     }, [noteId])
 
 
     function onSaveNote(ev) {
         ev.preventDefault()
-      
+
         noteService.save(note)
             .then(() => {
                 console.log('Note saved successfully')
@@ -57,13 +57,13 @@ export function NoteEdit({ noteId, onClose }) {
         }))
     }
 
-return (
-    <dialog open={true} className="note-dialog" onClick={(ev) => ev.stopPropagation()}>
-        <form onSubmit={onSaveNote} >
-            <Textbox handleChange={handleChange} name="txt" txt={note.info.txt} />
-            <button onClick={onClose} className="close-button">x</button>
-            <button>Save</button>
-        </form>
-    </dialog>
-)
+    return (
+        <dialog open={true} className="note-dialog" onClick={(ev) => ev.stopPropagation()}>
+            <form onSubmit={onSaveNote} >
+                <Textbox handleChange={handleChange} name="txt" txt={note.info.txt} />
+                <button onClick={onClose} className="close-button">x</button>
+                <button>Save</button>
+            </form>
+        </dialog>
+    )
 }
