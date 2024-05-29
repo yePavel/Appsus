@@ -8,7 +8,8 @@ import { ColorInput } from "./ColorInput.jsx";
 export function NoteAdd({ onLoad }) {
     const [cmpType, setCmpType] = useState('')
     const [note, setNote] = useState(noteService.getEmptyNote())
-    const navigate = useNavigate()
+
+
  
     const wrapperRef = useRef(null)
 
@@ -16,30 +17,26 @@ export function NoteAdd({ onLoad }) {
         backgroundColor: '#fff',
     })
 
-    function resetNoteFields() {
-        setNote(prevNote => ({
-            ...prevNote,
-            info: {
-                ...prevNote.info,
-                txt: '',
-                title: ''
-            }
-        }))
-        console.log('note resetNoteFields',note)
-    }
 
     function onSaveNote() {
-        if (note.info.txt === '') return 
+        if (note.info.txt === '') return;
+
+     
 
         noteService.saveNewNote(note)
             .then(() => {
-                resetNoteFields()
-                onLoad()  
+               
+                setNote(noteService.getEmptyNote())
+            
             })
             .catch(() => {
-                alert('Could not save the note')
-            })   
-            console.log('note', note)
+                alert('Could not save the note');
+            })
+            .finally(() => {
+        
+                onLoad()
+
+            })
     }
 
     useEffect(() => {
@@ -49,10 +46,13 @@ export function NoteAdd({ onLoad }) {
             }
         }
 
-        document.addEventListener('mousedown', handleClickOutside)
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside)
-        }
+  
+            document.addEventListener('mousedown', handleClickOutside)
+            return () => {
+                document.removeEventListener('mousedown', handleClickOutside)
+               
+            }
+      
     }, [note])
 
 

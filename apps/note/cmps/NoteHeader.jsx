@@ -1,16 +1,17 @@
-const { useState ,useEffect} = React
+const { useState, useEffect } = React
 const { useNavigate } = ReactRouter
-const { Link } = ReactRouterDOM
 
-export function NoteHeader({ filterBy, onFilter, onLoad }) {
+
+export function NoteHeader({ filterBy, onFilter, onLoad, isNavOpen, setIsNavOpen }) {
     const navigate = useNavigate()
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
 
+
     useEffect(() => {
-       
+
         onFilter(filterByToEdit)
         onLoad()
-   
+
     }, [filterByToEdit])
 
     function handleChange({ target }) {
@@ -23,7 +24,19 @@ export function NoteHeader({ filterBy, onFilter, onLoad }) {
         navigate('/note/search')
     }
 
+    function toggleNavbar() {
+        setIsNavOpen(!isNavOpen)
+    }
+
     return <header className="header" >
+        <div className="note-navbar">
+            <div className="note-hamburger" onClick={toggleNavbar}>
+                <div className="note-bar"></div>
+                <div className="note-bar"></div>
+                <div className="note-bar"></div>
+            </div>
+        </div>
+
         <div className="header-title" >
             <img src="https://img.icons8.com/?size=100&id=30655&format=png&color=000000" alt="Google Keep Logo" className="keep-icon" />
             <h1 onClick={() => navigate(`/note`)} className="title-text">Keep</h1>
@@ -31,19 +44,19 @@ export function NoteHeader({ filterBy, onFilter, onLoad }) {
 
         <section className="search-container" >
             <div className="search-active">
-        
-                    <input
-                        value={filterByToEdit.txt}
-                        name="txt"
-                        type="search"
-                        className="search-input"
-                        onChange={handleChange}
-                        onFocus={handleFocus}
-                        placeholder='Search'
-                        autoFocus
-                    />
-           
-             
+
+                <input
+                    value={filterByToEdit.txt}
+                    name="txt"
+                    type="search"
+                    className="search-input"
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                    placeholder='Search'
+                    autoFocus
+                />
+
+
             </div>
         </section>
 

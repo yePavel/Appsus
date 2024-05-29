@@ -7,6 +7,7 @@ import { NoteList } from './../cmps/NoteList.jsx'
 import { NoteHeader } from './../cmps/NoteHeader.jsx'
 import { NoteAdd } from './../cmps/NoteAdd.jsx'
 import { NoteFilter } from './../cmps/NoteFilter.jsx'
+import { NoteNavBar } from '../cmps/NoteNavBar.jsx'
 
 
 
@@ -15,6 +16,9 @@ export function NoteIndex() {
     const [isSearching, setIsSearching] = useState(false)
     const params = useParams()
     const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
+    const [isNavOpen, setIsNavOpen] = useState(false)
+   
+
 
 
     useEffect(() => {
@@ -52,13 +56,17 @@ export function NoteIndex() {
     }
 
     function onSetFilterBy(newFilter) {
-        setFilterBy({ ...newFilter });
+        setFilterBy({ ...newFilter })
     }
 
-    return <section className="note-index">
-        <NoteHeader filterBy={filterBy} onFilter={onSetFilterBy} onLoad={loadNotes} />
-        {!isSearching && <NoteAdd onLoad={loadNotes} />}
-        {<NoteList notes={notes} onRemove={removeNote} onLoad={loadNotes} />}
-    </section>
+    return (
+        <section className="note-index">
+            <NoteHeader filterBy={filterBy} onFilter={onSetFilterBy} onLoad={loadNotes} isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen}/>
+            <div className={`note-content ${isNavOpen ? 'content-shifted' : ''}`}>
+                {!isSearching && <NoteAdd onLoad={loadNotes} />}
+                <NoteList notes={notes} onRemove={removeNote} onLoad={loadNotes} />
+            </div>
+            { isNavOpen && <NoteNavBar isNavOpen={isNavOpen}/>}
+        </section>
+    )
 }
-
