@@ -9,6 +9,7 @@ export function MailPreview({ mail, removeEmail, filterBy }) {
 
     function onSetIsRead() {
         setCurrMail(() => {
+            console.log('updatedMail:', updatedMail)
             const updatedMail = { ...currMail, isRead: true }
             eMailService.save(updatedMail, filterBy)
         })

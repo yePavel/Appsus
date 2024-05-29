@@ -65,8 +65,6 @@
 .sorting-container .label {
     text-align: center;
     padding-inline-start: 5px;
-    background-color: aqua;
-
 }
 
 .sorting-container input {
@@ -79,7 +77,7 @@
     align-items: center;
     justify-content: center;
     min-width: 80px;
-    background-color: rgb(224, 224, 224);
+    background-color: var(--mail-label-hover);
     cursor: pointer;
     padding: 8px 4px;
     border-radius: 30px;
@@ -90,7 +88,7 @@
     align-items: center;
     justify-content: center;
     min-width: 80px;
-    background-color: rgb(224, 224, 224);
+    background-color: var(--mail-label-hover);
     cursor: pointer;
     padding: 8px 4px;
     border-radius: 30px;
