@@ -20,7 +20,7 @@ export function EmailFilter({ filterBy, onFilter }) {
         <input
             type="text"
             name='txt'
-            className='search-input'
+            className='email-search-input'
             value={txt}
             onChange={handleChange}
         />

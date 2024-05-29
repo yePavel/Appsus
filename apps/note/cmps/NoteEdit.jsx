@@ -12,7 +12,7 @@ export function NoteEdit({ noteId, onClose }) {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (noteId) {
+        if (noteId && noteId !== 'search') {
             noteService.get(noteId).then(setNote);
         }
     }, [noteId])
@@ -26,7 +26,6 @@ export function NoteEdit({ noteId, onClose }) {
                 console.log('Note saved successfully')
                 navigate(`/note`)
                 onClose()
-               
             })
             .catch(() => {
                 alert('Could not save the note')
@@ -57,8 +56,6 @@ export function NoteEdit({ noteId, onClose }) {
             }
         }))
     }
-
-
 
 return (
     <dialog open={true} className="note-dialog" onClick={(ev) => ev.stopPropagation()}>
