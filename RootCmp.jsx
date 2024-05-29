@@ -18,12 +18,11 @@ export function App() {
             <AppHeader />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
                 <Route path="/mail" element={<MailIndex />} />
                 <Route path="/mail/:emailId" element={<MailIndex />} />
                 <Route path="/note" element={<NoteIndex />} />
-                <Route path="/note" element={<NoteAdd />}/>
-                <Route path="/note/:noteId/search" element={<NoteIndex />}/>
+                <Route path="/note" element={<NoteAdd />} />
+                <Route path="/note/:noteId/search" element={<NoteIndex />} />
                 <Route path="/note/:noteId" element={<NoteIndex />} />
             </Routes>
         </section>

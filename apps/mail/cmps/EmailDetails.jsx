@@ -21,11 +21,11 @@ export function EmailDetails({ onDisplayUnreadEmailsCnt, removeEmail, filterBy }
         <div className='email-details-actions'>
             <Link to={'/mail/'}>
                 <button>
-                    <img className='icon' src="/assets/img/mail-icons/back-arrow.png" alt="" />
+                    <img className='icon' src="./assets/img/mail-icons/back-arrow.png" alt="" />
                 </button>
             </Link>
             <button onClick={(ev) => removeEmail(email.id, ev)}>
-                <img className='icon-trash' src="/assets/img/mail-icons/trash.png" alt="" />
+                <img className='icon-trash' src="./assets/img/mail-icons/trash.png" alt="" />
             </button>
         </div>
 

@@ -1,9 +1,3 @@
-/* Setup */
-
-@import './setup/variables.css';
-@import './setup/typography.css';
-/* @import './setup/fonts.css'; */
-
 /* Basics */
 
 @import './basics/base.css';
@@ -15,13 +9,6 @@
 
 /* @import './apps/note/views/NoteIndex.css'; */
 @import './apps/note/views/NoteIndex.css';
-
-
-
-
-
-
-
 @import './apps/mail/views/MailIndex.css';
 
 /* Cmps */
@@ -44,3 +31,12 @@
 @import './apps/note/cmps/NoteHeader.css';
 @import './apps/note/cmps/NoteAdd.css';
 @import './apps/note/cmps/NoteFilter.css';
+
+/* Setup */
+
+@import './setup/variables.css';
+@import './setup/typography.css';
+/* @import './setup/fonts.css'; */
+
+/* media queries */
+@import './setup/mq.css';

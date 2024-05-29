@@ -26,9 +26,10 @@ export function MailPreview({ mail, removeEmail, filterBy }) {
         if (year < 2023) return year
         if (year >= 2023) return month + " " + year
     }
-
+    console.log('currMail:', currMail)
     return (
         <div className={`email-preview-container ${currMail.isRead ? 'isRead' : ''}`}>
+
             <Link to={`/mail/${mail.id}`}>
                 <div className={`mail-preview`}
                     onClick={() => onSetIsRead()}>
@@ -41,9 +42,10 @@ export function MailPreview({ mail, removeEmail, filterBy }) {
 
                 </div>
             </Link>
+
             <div className='email-actions'>
                 <button onClick={(ev) => removeEmail(currMail.id, ev)}>
-                    <img className='icon' src="/assets/img/mail-icons/trash.png" alt="" />
+                    <img className='icon' src="./assets/img/mail-icons/trash.png" alt="" />
                 </button>
             </div>
         </div>
