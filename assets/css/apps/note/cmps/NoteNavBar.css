@@ -1,0 +1,56 @@
+.side-nav {
+    position: fixed;
+    top: 137px; 
+    left: -200px; 
+    width: 200px; 
+    height: calc(100% - 137px); 
+    background-color: #f8f9fa; 
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+
+.side-nav.open {
+    left: 0; 
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    color: #5f6368;
+    transition: background-color 0.3s ease;
+    border-radius: 50px; 
+}
+
+.nav-link:hover {
+    background-color: #feefc3;
+}
+
+.nav-link:active,
+.nav-link.active {
+    background-color: #feefc3; 
+}
+
+.nav-link svg {
+    width: 20px; 
+    height: 20px; 
+    margin-right: 10px; 
+}
+
+.nav-link.note svg {
+    fill: #f28b82; 
+}
+
+.nav-link.label svg {
+    fill: #7bc67b; 
+}
+
+.nav-link.archive svg {
+    fill: #aecbfa; 
+}
+
+.nav-link.trash svg {
+    fill: #fbbc04; 
+}
