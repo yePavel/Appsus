@@ -1,5 +1,5 @@
-header {
-    background: var(--main-bg-color);
+.app-header {
+    background: linear-gradient(100deg, #e2adad, #cad3e6);
     border-bottom: 2px solid white;
 }
 

@@ -1,7 +1,6 @@
 .email-search-container {
     display: grid;
     grid-template-columns: minmax(300px, 400px) minmax(300px, 1fr);
-    flex-direction: column;
     gap: 5px;
     grid-column: 2/-1;
 }

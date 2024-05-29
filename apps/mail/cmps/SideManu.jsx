@@ -1,6 +1,6 @@
 const { useEffect, useState } = React
 
-export function SideMenu({ unreadMails, toggleCompose, filterBy, onFilter }) {
+export function SideMenu({ unreadMails, toggleCompose, filterBy, onFilter, isMenuActive, toggleSideMenu }) {
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
 
     useEffect(() => {
@@ -11,7 +11,9 @@ export function SideMenu({ unreadMails, toggleCompose, filterBy, onFilter }) {
         setFilterByToEdit({ ...filterByToEdit, status: newLabel })
     }
 
-    return <div className='side-menu-container'>
+    const menuStyle = isMenuActive ? 'active-menu' : ''
+
+    return <div className={`side-menu-container ${menuStyle}`} onClick={() => toggleSideMenu()}>
         <button className='compose-btn' onClick={() => toggleCompose()}>
             <img className='icon' src="./assets/img/mail-icons/pencil.png" alt="" />
             Compose

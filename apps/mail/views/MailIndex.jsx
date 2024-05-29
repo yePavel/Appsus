@@ -15,6 +15,7 @@ export function MailIndex() {
     const [composeFlag, setComposeFlag] = useState(false)
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(eMailService.getFilterFromSearchParams(searchParams))
+    const [mobileMenu, setMobileMenu] = useState(false)
 
     const params = useParams()
     const navigate = useNavigate()
@@ -59,12 +60,21 @@ export function MailIndex() {
         setFilterBy({ ...newFilter })
     }
 
+    function toggleMenu() {
+        setMobileMenu(prev => !prev)
+    }
+
+    const screenStyle = mobileMenu ? 'main-screen' : ''
+
     return <div className='emails-container'>
-        <img className='main-icon' src="/assets/img/mail-icons/gmail-icon.png" alt="gmail-icon" />
+        <div className={`${screenStyle}`} onClick={() => toggleMenu()}></div>
+        <img className='nav-main-icon' src="./assets/img/mail-icons/gmail-icon.png" alt="gmail-icon" />
+        <img className='menu-icon' src="./assets/img/mail-icons/menu.png" alt="menu-icon" onClick={() => toggleMenu()} />
+
         <EmailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
 
         <SideMenu unreadMails={emailsCounter} toggleCompose={onToggleCompose}
-            filterBy={filterBy} onFilter={onSetFilterBy} />
+            filterBy={filterBy} onFilter={onSetFilterBy} isMenuActive={mobileMenu} toggleSideMenu={toggleMenu} />
 
         {params.emailId && <EmailDetails unreadMails={emailsCounter} filterBy={filterBy}
             onDisplayUnreadEmailsCnt={onDisplayUnreadEmailsCnt} removeEmail={onRemoveEmail} />}

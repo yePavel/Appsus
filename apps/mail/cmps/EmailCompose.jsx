@@ -1,3 +1,4 @@
+import { utilService } from "../../../services/util.service"
 import { eMailService } from "../services/emailService"
 
 const { useState, useEffect } = React
@@ -13,7 +14,8 @@ export function EmailCompose({ toggleCompose, saveSentEmail }) {
         from: eMailService.getLoggedInUser().email,
         to: '',
         subject: '',
-        body: ''
+        body: '',
+        sentAt: new Date()
     })
 
     const { from, to, subject, body } = newEmail
