@@ -15,7 +15,6 @@ import { NoteAdd } from "./apps/note/cmps/NoteAdd.jsx"
 export function App() {
     return <Router>
         <section className="app">
-            <AppHeader />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/mail" element={<MailIndex />} />
