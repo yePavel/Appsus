@@ -59,7 +59,6 @@ export function NoteAdd({ onLoad }) {
     function handleChange({ target }) {
         const { type, name: prop } = target
         let { value } = target
-        console.log('value', value)
 
         switch (type) {
             case 'range':
@@ -70,7 +69,7 @@ export function NoteAdd({ onLoad }) {
                 value = target.checked
                 break
         }
-            console.log('value of note txt:',value)
+          
         setNote(prevNote => ({
             ...prevNote,
             info: {
@@ -85,7 +84,6 @@ export function NoteAdd({ onLoad }) {
     }
 
     function onSetFooterStyle(newStyle) {
-        console.log('newStyle', newStyle)
         setSelectedColor(prevStyle => ({ ...prevStyle, ...newStyle }))
 
         setNote(prevNote => ({

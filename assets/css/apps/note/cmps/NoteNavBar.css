@@ -21,14 +21,17 @@
     text-decoration: none;
     color: #5f6368;
     transition: background-color 0.3s ease;
-    border-radius: 50px; 
+    border-radius: 20px; 
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: center;
 }
 
 .nav-link:hover {
     background-color: #feefc3;
 }
 
-.nav-link:active,
 .nav-link.active {
     background-color: #feefc3; 
 }

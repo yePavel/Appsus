@@ -41,3 +41,7 @@
 /* media queries */
 @import './setup/mq.css';
 @import './apps/note/cmps/NoteNavBar.css';
+@import './apps/note/cmps/NoteTrash.css';
+
+
+

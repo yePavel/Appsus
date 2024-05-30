@@ -13,7 +13,7 @@
     backdrop-filter: blur(5px);
 }
 
-.close-button {
+.close-edit-button {
     position: absolute;
     top: 10px;
     right: 10px;
