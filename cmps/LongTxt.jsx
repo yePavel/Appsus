@@ -1,6 +1,6 @@
 const { useState } = React
 
-export function LongTxt({ txt, length = 100 }) {
+export function LongTxt({ txt, length = 5 }) {
     if (!txt) return
     const shortTxt = txt.substring(0, length)
     const [text, setText] = useState(shortTxt)
