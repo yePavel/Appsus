@@ -1,55 +1,57 @@
 const { useState, useEffect } = React
 
 import { noteService } from './../services/note.service.js'
-        
-export function NotePreview({ note, onMoveTrash, onRecycling }) {
-    const [isPined, setIsPined] =useState(note.isPined)
-    function handleClick(ev) {
-        ev.stopPropagation()
-        ev.preventDefault()
 
+export function NotePreview({ note, onMoveTrash, onRecycling, onStickyNotes }) {
+    console.log('NotePreview note:', note);
+    const [isPinned, setIsPinned] = useState(note.isPinned);
+
+    function handleClick(ev) {
+        ev.stopPropagation();
+        ev.preventDefault();
 
         if (ev.target.name === 'remove') {
-            console.log('remove',)
-            onMoveTrash(note.id)
+            console.log('remove');
+            onMoveTrash(note.id);
         }
 
         if (ev.target.name === 'recycling') {
-            console.log('recycling')
-            onRecycling(note.id)
+            console.log('recycling');
+            onRecycling(note.id);
         }
-
     }
 
     function onSelect(ev) {
-        ev.stopPropagation()
-        ev.preventDefault()
+        ev.stopPropagation();
+        ev.preventDefault();
 
-        note.isPined = !note.isPined 
+        note.isPinned = !note.isPinned;
 
         noteService.save(note)
             .then(() => {
-                setIsPined( note.isPined)
-                // onStickyNotes(note)
+                setIsPinned(note.isPinned);
+                onStickyNotes(note);
             })
     }
 
-    return <article className="note-preview" style={{ backgroundColor: note.style.backgroundColor }}>
-        {!note.isRemoved && ( <span style={{ cursor: 'pointer' }} onClick={onSelect}>
-        {isPined ? '★' : '☆'}
-      </span>) }
-  
-        <h3>{note.info.title}</h3>
-        <p>{typeof note.info.txt === 'string' ? note.info.txt : ''}</p>
-        <span>last update {note.createdAt}</span>
-
-        <div className="button-container">
-            {note.isRemoved && (
-                <button name='recycling' onClick={handleClick} className="recycling-button">♻️</button>
+    return (
+        <article className="note-preview" style={{ backgroundColor: note.style.backgroundColor }}>
+            {!note.isRemoved && (
+                <span style={{ cursor: 'pointer' }} onClick={onSelect}>
+                    {isPinned ? '★' : '☆'}
+                </span>
             )}
-            <button name='remove' onClick={handleClick} className="close-button">🗑️</button>
-        </div>
-    </article>
 
+            <h3>{note.info.title}</h3>
+            <p>{typeof note.info.txt === 'string' ? note.info.txt : ''}</p>
+            <span>last update {note.createdAt}</span>
+
+            <div className="button-container">
+                {note.isRemoved && (
+                    <button name='recycling' onClick={handleClick} className="recycling-button">♻️</button>
+                )}
+                <button name='remove' onClick={handleClick} className="close-button">🗑️</button>
+            </div>
+        </article>
+    )
 }
-
