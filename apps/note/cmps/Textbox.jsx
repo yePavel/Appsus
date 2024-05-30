@@ -1,12 +1,7 @@
-const {  useEffect } = React
-export function Textbox({ handleChange,name,txt,originalTextValue }) {
+const { useEffect } = React
+export function Textbox({ handleChange, name, txt }) {
 
-    function onSetTxt({target}) {
-
-        if(originalTextValue === '')
-            {
-                txt=''
-            }
+    function onSetTxt({ target }) {
         const txt = target.value
         handleChange({ target: { name: 'txt', value: txt, type: 'text' } })
     }
@@ -23,8 +18,10 @@ export function Textbox({ handleChange,name,txt,originalTextValue }) {
                 outline: 'none',
                 backgroundColor: 'transparent'
             }}
+            cols={30}
+            rows={10}
             value={txt}
-            type= 'text'
+            type='text'
             onChange={onSetTxt}
             placeholder='Take a note...'
         ></textarea>

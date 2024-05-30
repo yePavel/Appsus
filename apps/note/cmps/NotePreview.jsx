@@ -1,17 +1,34 @@
 
-export function  NotePreview({note, onMoveTrash}) {
+export function NotePreview({ note, onMoveTrash, onRecycling }) {
 
-    function handleRemoveClick(ev){
-        ev.stopPropagation() 
+    function handleClick(ev) {
+        ev.stopPropagation()
         ev.preventDefault()
-        onMoveTrash(note.id)
+
+
+        if (ev.target.name === 'remove') {
+            console.log('remove',)
+            onMoveTrash(note.id)
+        }
+
+        if (ev.target.name === 'recycling') {
+            console.log('recycling')
+            onRecycling(note.id)
+        }
+
     }
 
     return <article className="note-preview" style={{ backgroundColor: note.style.backgroundColor }}>
         <h3>{note.info.title}</h3>
         <p>{typeof note.info.txt === 'string' ? note.info.txt : ''}</p>
         <span>last update {note.createdAt}</span>
-        <button type='button' onClick={handleRemoveClick} className="close-button">🗑️</button>
+
+        <div className="button-container">
+            {note.isRemoved && (
+                <button name='recycling' onClick={handleClick} className="recycling-button">♻️</button>
+            )}
+            <button name='remove' onClick={handleClick} className="close-button">🗑️</button>
+        </div>
     </article>
 
 }

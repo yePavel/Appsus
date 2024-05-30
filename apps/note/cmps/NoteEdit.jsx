@@ -61,7 +61,7 @@ export function NoteEdit({ noteId, onClose }) {
         <dialog open={true} className="note-dialog" onClick={(ev) => ev.stopPropagation()}>
             <form onSubmit={onSaveNote} >
                 <Textbox handleChange={handleChange} name="txt" txt={note.info.txt} />
-                <button onClick={onClose} className="close-button">x</button>
+                <button onClick={onClose} className="close-edit-button">x</button>
                 <button>Save</button>
             </form>
         </dialog>

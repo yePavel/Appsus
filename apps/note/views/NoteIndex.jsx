@@ -48,7 +48,7 @@ export function NoteIndex() {
 
 
     function moveNote(noteId) {
-        noteService.move(noteId)
+        noteService.moveToTrash(noteId)
             .then(() => {
                 setNotes(prevNots => prevNots.filter(note => note.id != noteId))
                 // showSuccessMsg(`Node removed successfully!`)
@@ -70,13 +70,14 @@ export function NoteIndex() {
 
 
 
+
     return (
         <section className="note-index">
             <NoteHeader filterBy={filterBy} onFilter={onSetFilterBy} onLoad={loadNotes} isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
             <div className={`note-content ${isNavOpen ? 'content-shifted' : ''} `}>
                 {!isClickLink && !isSearching && <NoteAdd onLoad={loadNotes} />}
                 {!isClickLink && <NoteList notes={notes} onMoveTrash={moveNote} onLoad={loadNotes} />}
-                {isClickLink && <NoteTrash  />}
+                {isClickLink && <NoteTrash onLoad={loadNotes} />}
             </div>
             {isNavOpen && <NoteNavBar isNavOpen={isNavOpen} onActiveLink={onActiveLink} />}
            
