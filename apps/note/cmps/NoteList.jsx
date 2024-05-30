@@ -46,12 +46,14 @@ export function NoteList({ notes, onMoveTrash, onLoad }) {
 
     return (
         <section>
+             <span style={{ fontSize: '0.8em', color: '#888' }}>Sticky notes</span>
             <div className="note-list pinned">
                 {renderNotes(note => note.isPinned === true)}
             </div>
 
             <div className="separator"></div>
 
+            <span style={{ fontSize: '0.8em', color: '#888' }}>other comments</span>
             <div className="note-list unpinned" >
                 {renderNotes(note => note.isPinned === false)}
             </div>
@@ -65,54 +67,5 @@ export function NoteList({ notes, onMoveTrash, onLoad }) {
         </section>
     )
 }
-
-
-// return (
-//     <section className="note-list">
-//         {notes.map(note => (
-//             <Link key={note.id} to={`/note/${note.id}`}>
-//                 <div className="note">
-//                     <NotePreview note={note} onMoveTrash={onMoveTrash} onStickyNotes={onStickyNotes}/>
-//                 </div>
-//             </Link>
-//         ))}
-//         {openNoteId && (
-//             <NoteEdit
-//                 noteId={params.noteId}
-//                 onClose={closeDialog}
-//             />
-//         )}
-//     </section>
-
-// )
-// }
-
-// return (
-//     <section >
-//         <div className="note-list">
-//         {notes
-//             .filter(note => {
-//                 if (note.isPinned === undefined) {
-//                     console.log('Note without isPinned:', note);
-//                 }
-//                 return note.isPinned === false;
-//             })
-//             .map(note => (
-//                 <Link key={note.id} to={`/note/${note.id}`}>
-//                     <div className="note">
-//                         <NotePreview note={note} onMoveTrash={onMoveTrash} onStickyNotes={onStickyNotes} />
-//                     </div>
-//                 </Link>
-//             ))}
-//             </div>
-//         {openNoteId && (
-//             <NoteEdit
-//                 noteId={params.noteId}
-//                 onClose={closeDialog}
-//             />
-//         )}
-//     </section>
-// )
-// }
 
 

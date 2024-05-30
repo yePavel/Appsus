@@ -1,18 +1,17 @@
 .side-nav {
-    position: fixed;
-    top: 150px; 
-    left: -200px; 
-    width: 200px; 
-    height: calc(100% - 150px); 
-    background-color: #f8f9fa; 
+    position:fixed;
+    top: 184px;
+    left: 0;
+    width: 200px;
+    height: calc(100% - 184px);
+    background-color: #f8f9fa;
     transition: left 0.3s ease;
     z-index: 1000;
 }
 
 .side-nav.open {
-    left: 0; 
+    left: 0;
 }
-
 .nav-link {
     display: flex;
     align-items: center;
@@ -21,7 +20,7 @@
     text-decoration: none;
     color: #5f6368;
     transition: background-color 0.3s ease;
-    border-radius: 20px; 
+    border-radius: 20px;
     background: none;
     border: none;
     cursor: pointer;
@@ -33,27 +32,27 @@
 }
 
 .nav-link.active {
-    background-color: #feefc3; 
+    background-color: #feefc3;
 }
 
 .nav-link svg {
-    width: 20px; 
-    height: 20px; 
-    margin-right: 10px; 
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
 }
 
 .nav-link.note svg {
-    fill: #f28b82; 
+    fill: #f28b82;
 }
 
 .nav-link.label svg {
-    fill: #7bc67b; 
+    fill: #7bc67b;
 }
 
 .nav-link.archive svg {
-    fill: #aecbfa; 
+    fill: #aecbfa;
 }
 
 .nav-link.trash svg {
-    fill: #fbbc04; 
+    fill: #fbbc04;
 }

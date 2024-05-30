@@ -1,4 +1,4 @@
-const { useEffect } = React
+
 export function Textbox({ handleChange, name, txt }) {
 
     function onSetTxt({ target }) {

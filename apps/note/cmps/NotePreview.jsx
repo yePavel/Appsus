@@ -44,8 +44,7 @@ export function NotePreview({ note, onMoveTrash, onRecycling, onStickyNotes }) {
 
             <h3>{note.info.title}</h3>
             <p>{typeof note.info.txt === 'string' ? note.info.txt : ''}</p>
-            <span>last update {note.createdAt}</span>
-
+            <span style={{ fontSize: '0.8em', color: '#888' }}>last update {note.createdAt}</span>
             <div className="button-container">
                 {note.isRemoved && (
                     <button name='recycling' onClick={handleClick} className="recycling-button">♻️</button>
