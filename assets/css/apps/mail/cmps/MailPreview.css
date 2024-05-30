@@ -7,8 +7,8 @@
 }
 
 .mail-preview {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     padding: 5px;
 }
 
@@ -18,16 +18,20 @@
 
 .mail-preview .mail-prev-details {
     display: flex;
-    justify-content: space-between;
     padding-inline-end: 10px;
     gap: 30px;
 }
 
+.mail-preview p:last-child {
+    justify-self: end;
+    padding-inline-end: 30px;
+}
+
 .email-actions {
     position: absolute;
-    right: 15px;
+    right: 0;
     gap: 3px;
-    bottom: 0;
+    bottom: -3px;
     display: none;
 }
 
@@ -38,10 +42,10 @@
 }
 
 .email-actions .icon {
-    width: 15px;
+    width: 20px;
     border-radius: 30px;
     padding: 5px;
-    margin-block-start: 4px;
+    margin-inline-start: 20px;
 }
 
 .email-actions .icon:hover {
