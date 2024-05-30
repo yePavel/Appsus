@@ -144,7 +144,7 @@ function _createNotes() {
             id: utilService.makeId(),
             createdAt: utilService.getCurrentTime(),
             type: 'NoteTxt',
-            isPinned: true,
+            isPinned: false,
             isRemoved: false,
             style: {
                 backgroundColor: '#fff'

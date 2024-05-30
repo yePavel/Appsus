@@ -69,8 +69,6 @@ export function NoteIndex() {
     }
 
 
-
-
     return (
         <section className="note-index">
             <NoteHeader filterBy={filterBy} onFilter={onSetFilterBy} onLoad={loadNotes} isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
