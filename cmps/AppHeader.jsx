@@ -4,7 +4,7 @@ export function AppHeader() {
 
     return <header className="app-header">
         <Link to="/">
-            <h3>LOGO!</h3>
+            <img className='app-logo' src="./assets/img/mail-icons/applogo.png" alt="gmail-icon" />
         </Link>
         <nav>
             <NavLink to="/"><img className='main-icon' src="./assets/img/mail-icons/home.png" alt="home-icon" /></NavLink>

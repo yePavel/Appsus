@@ -1,12 +1,16 @@
 .app-header {
-    background: linear-gradient(100deg, #e2adad, #cad3e6);
-    border-bottom: 2px solid white;
+    background: linear-gradient(100deg, #ffffff, #cdb1da);
 }
 
 .app-header {
     display: flex;
     justify-content: space-between;
     padding: 20px 0;
+}
+
+nav {
+    display: flex;
+    align-items: center;
 }
 
 nav a {
@@ -21,4 +25,9 @@ nav a.active {
     color: darkblue;
     font-weight: bold;
     text-decoration: overline;
+}
+
+.app-logo {
+    padding-inline-start: 10px;
+    width: 60px;
 }
