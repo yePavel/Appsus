@@ -39,13 +39,13 @@
 
     .side-menu-container {
         position: fixed;
+        top: 0;
         left: 0;
         height: 100dvh;
         background-color: rgba(241, 241, 241, 0.9);
         border-inline-end: 1px solid #838383;
         min-width: 200px;
         z-index: 10;
-        top: 75px;
         padding: 10px;
         transform: translateX(-100%);
     }

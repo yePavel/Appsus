@@ -51,3 +51,7 @@
 .email-actions .icon:hover {
     background-color: rgba(216, 216, 216, 0.705);
 }
+
+.mail-preview.un-read {
+    font-weight: 600;
+}
