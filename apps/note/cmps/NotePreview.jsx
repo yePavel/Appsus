@@ -3,7 +3,7 @@ const { useState, useEffect } = React
 import { noteService } from './../services/note.service.js'
 
 export function NotePreview({ note, onMoveTrash, onRecycling, onStickyNotes }) {
-    console.log('NotePreview note:', note);
+   
     const [isPinned, setIsPinned] = useState(note.isPinned);
 
     function handleClick(ev) {
@@ -22,8 +22,8 @@ export function NotePreview({ note, onMoveTrash, onRecycling, onStickyNotes }) {
     }
 
     function onSelect(ev) {
-        ev.stopPropagation();
-        ev.preventDefault();
+        ev.stopPropagation()
+        ev.preventDefault()
 
         note.isPinned = !note.isPinned;
 
