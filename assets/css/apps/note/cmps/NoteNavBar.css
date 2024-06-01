@@ -1,17 +1,18 @@
 .side-nav {
-    position:fixed;
+    position: fixed;
     top: 184px;
     left: 0;
-    width: 200px;
-    height: calc(100% - 184px);
-    background-color: #f8f9fa;
+    width: 180px;
     transition: left 0.3s ease;
-    z-index: 1000;
 }
 
 .side-nav.open {
+    position: absolute;
+    top: 21%;
+    bottom: 0;
     left: 0;
 }
+
 .nav-link {
     display: flex;
     align-items: center;
@@ -56,3 +57,14 @@
 .nav-link.trash svg {
     fill: #fbbc04;
 }
+
+/* .note-main-screen {
+    display: block;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 500px;
+    height: 100vh;
+    background-color: rgba(212, 212, 212, 0.336);
+} */
