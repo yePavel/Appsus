@@ -1,23 +1,23 @@
-const { useState, useEffect } = React
+const { useState } = React
 
 import { noteService } from './../services/note.service.js'
 
 export function NotePreview({ note, onMoveTrash, onRecycling, onStickyNotes }) {
-   
+
     const [isPinned, setIsPinned] = useState(note.isPinned);
 
     function handleClick(ev) {
-        ev.stopPropagation();
-        ev.preventDefault();
+        ev.stopPropagation()
+        ev.preventDefault()
 
         if (ev.target.name === 'remove') {
-            console.log('remove');
-            onMoveTrash(note.id);
+            console.log('remove')
+            onMoveTrash(note.id)
         }
 
         if (ev.target.name === 'recycling') {
-            console.log('recycling');
-            onRecycling(note.id);
+            console.log('recycling')
+            onRecycling(note.id)
         }
     }
 
@@ -25,12 +25,12 @@ export function NotePreview({ note, onMoveTrash, onRecycling, onStickyNotes }) {
         ev.stopPropagation()
         ev.preventDefault()
 
-        note.isPinned = !note.isPinned;
+        note.isPinned = !note.isPinned
 
         noteService.save(note)
             .then(() => {
-                setIsPinned(note.isPinned);
-                onStickyNotes(note);
+                setIsPinned(note.isPinned)
+                onStickyNotes(note)
             })
     }
 

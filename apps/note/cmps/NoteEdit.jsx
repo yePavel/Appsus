@@ -1,7 +1,5 @@
 const { useState, useEffect } = React
-const { useParams, useNavigate } = ReactRouter
-const { Link } = ReactRouterDOM
-
+const { useNavigate } = ReactRouter
 
 
 import { noteService } from './../services/note.service.js'
@@ -12,7 +10,7 @@ export function NoteEdit({ noteId, onClose }) {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (noteId && noteId !== 'search' && noteId !== 'trash' ) {
+        if (noteId && noteId !== 'search' && noteId !== 'trash') {
             noteService.get(noteId).then(setNote)
         }
     }, [noteId])

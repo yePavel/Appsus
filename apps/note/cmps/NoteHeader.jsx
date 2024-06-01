@@ -59,10 +59,5 @@ export function NoteHeader({ filterBy, onFilter, onLoad, isNavOpen, setIsNavOpen
 
             </div>
         </section>
-
-
-
-        {/* Sidebar menu will be added here in the future */}
-        {/* <SidebarMenu /> */}
     </header>
 }

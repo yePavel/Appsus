@@ -1,35 +1,38 @@
 const { useState, useEffect } = React
 const { useParams, useNavigate } = ReactRouter
-const { useLocation } = ReactRouterDOM
+
 
 import { noteService } from './../services/note.service.js'
 
 import { NoteList } from './../cmps/NoteList.jsx'
 import { NoteHeader } from './../cmps/NoteHeader.jsx'
 import { NoteAdd } from './../cmps/NoteAdd.jsx'
-import { NoteFilter } from './../cmps/NoteFilter.jsx'
 import { NoteNavBar } from '../cmps/NoteNavBar.jsx'
 import { NoteTrash } from '../cmps/NoteTrash.jsx'
-
 
 
 export function NoteIndex() {
     const params = useParams()
     const navigate = useNavigate()
-    const [notes, setNotes] = useState([])
+    const [notes, setNotes] = useState([]);
     const [isNavOpen, setIsNavOpen] = useState(false)
     const [isSearching, setIsSearching] = useState(false)
     const [isClickLink, setIsClickLink] = useState(false)
     const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
-    const [mobileMenu, setMobileMenu] = useState(true)
-
+    const [isEditing, setIsEditing] = useState(false)
 
     useEffect(() => {
-        if (params.noteId === 'search' || params.noteId === 'trash') {
-            if (params.noteId === 'search') setIsSearching(true)
-
-            if (params.noteId === 'trash') setIsClickLink(true)
-
+        if (params.noteId === '') {
+            setIsSearching(false)
+            setIsClickLink(false)
+        } else if (params.noteId === 'search' || params.noteId === 'trash') {
+            if (params.noteId === 'search') {
+                setIsSearching(true)
+                setIsClickLink(false)
+            } else if (params.noteId === 'trash') {
+                setIsSearching(false)
+                setIsClickLink(true)
+            }
         } else {
             setIsSearching(false)
             setIsClickLink(false)
@@ -48,19 +51,15 @@ export function NoteIndex() {
             .catch(err => console.error('Error fetching notes:', err))
     }
 
-
     function moveNote(noteId) {
         noteService.moveToTrash(noteId)
             .then(() => {
                 setNotes(prevNots => prevNots.filter(note => note.id != noteId))
-                // showSuccessMsg(`Node removed successfully!`)
             })
             .catch(err => {
                 console.log('err:', err)
-                // showErrorMsg('There was a problem')
             })
     }
-
 
     function onSetFilterBy(newFilter) {
         setFilterBy({ ...newFilter })
@@ -73,10 +72,11 @@ export function NoteIndex() {
     return (
         <section className="note-index">
 
-            {isNavOpen && <NoteNavBar isNavOpen={isNavOpen} onActiveLink={onActiveLink} />}
+            <NoteNavBar isNavOpen={isNavOpen} onActiveLink={onActiveLink} setIsNavOpen={setIsNavOpen} />
             <NoteHeader filterBy={filterBy} onFilter={onSetFilterBy} onLoad={loadNotes} isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-            <div className={`note-content ${isNavOpen ? 'content-shifted' : ''} `}>
-                {!isClickLink && !isSearching && <NoteAdd onLoad={loadNotes} />}
+
+            <div className={`note-content ${isNavOpen ? 'content-shifted' : ''}`}>
+                {!isClickLink && !isSearching && <NoteAdd onLoad={loadNotes} setIsEditing={setIsEditing} isEditing={isEditing} />}
                 {!isClickLink && <NoteList notes={notes} onMoveTrash={moveNote} onLoad={loadNotes} />}
                 {isClickLink && <NoteTrash onLoad={loadNotes} />}
             </div>

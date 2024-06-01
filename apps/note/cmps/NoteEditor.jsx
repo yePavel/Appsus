@@ -1,25 +1,16 @@
 
 const { useState, useEffect, useRef } = React
-const { useParams, useNavigate } = ReactRouter
+
 
 import { Textbox } from './Textbox.jsx'
-import { noteService } from './../services/note.service.js'
 import { ColorInput } from "./ColorInput.jsx";
 
-export function NoteEditor({ onSaveNote, setNote, note}) {
-    const [cmpType, setCmpType] = useState('')
-   
-
-
- 
+export function NoteEditor({ onSaveNote, setNote, note }) {
     const wrapperRef = useRef(null)
-
+    const [cmpType, setCmpType] = useState('')
     const [selectedColor, setSelectedColor] = useState({
         backgroundColor: '#fff',
     })
-
-
-
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -27,15 +18,13 @@ export function NoteEditor({ onSaveNote, setNote, note}) {
                 onSaveNote()
             }
         }
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
 
-  
-            document.addEventListener('mousedown', handleClickOutside)
-            return () => {
-                document.removeEventListener('mousedown', handleClickOutside)
-               
-            }
-      
-    }, [note,onSaveNote])
+        }
+
+    }, [note, onSaveNote])
 
 
     function handleChange({ target }) {
@@ -51,7 +40,7 @@ export function NoteEditor({ onSaveNote, setNote, note}) {
                 value = target.checked
                 break
         }
-          
+
         setNote(prevNote => ({
             ...prevNote,
             info: {
@@ -62,6 +51,8 @@ export function NoteEditor({ onSaveNote, setNote, note}) {
     }
 
     function onchangeCmpType(selectedType) {
+        console.log('selectedType', selectedType)
+        if (selectedType === 'list ') return
         setCmpType(prevType => (prevType === selectedType ? '' : selectedType))
     }
 
@@ -77,7 +68,6 @@ export function NoteEditor({ onSaveNote, setNote, note}) {
         }))
     }
 
-
     return (
         <div className='note-add-txt'>
             <div style={selectedColor} className='note-add' ref={wrapperRef}>
@@ -91,26 +81,46 @@ export function NoteEditor({ onSaveNote, setNote, note}) {
                         onChange={handleChange}
                         className='note-title'
                     />
-                    <Textbox className='note-text' handleChange={handleChange} name='txt' value={note.info.txt}  />
+                    <Textbox
+                        handleChange={handleChange}
+                        value={note.info.txt} />
 
-                    <button type='button' className="color-picker-button" onClick={() => onchangeCmpType('color')}>
-                        <i className="fas fa-palette"></i>
-                    </button>
+                    <div className="button-group">
 
-                    <DynamicCmp selectedColor={selectedColor} cmpType={cmpType} onSetFooterStyle={onSetFooterStyle} />
+                        <button type='button' className="color-picker-button" onClick={() => onchangeCmpType('color')}>
+                            <span className="material-icons">format_color_fill</span>
+                        </button>
+
+                        <button className='note-list-button' onClick={() => onchangeCmpType('list')}>
+                            <span className="material-icons">list</span>
+                        </button>
+
+                        {/* <button className='note-txt-button' onClick={() => onchangeCmpType('textbox')}>
+                            <span className="material-icons">description</span>
+                        </button> */}
+                    </div>
+
+                    <DynamicCmp
+                        cmpType={cmpType}
+
+                        selectedColor={selectedColor}
+                        onSetFooterStyle={onSetFooterStyle}
+                    />
+
                 </form>
             </div>
         </div>
     )
 
-
 }
 
 function DynamicCmp(props) {
-
+    console.log(props)
     switch (props.cmpType) {
         case 'color':
             return <ColorInput {...props} />
+        // case 'textbox':
+        //     return <Textbox  {...props} />
 
     }
 }

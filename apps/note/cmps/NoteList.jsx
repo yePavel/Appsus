@@ -46,7 +46,7 @@ export function NoteList({ notes, onMoveTrash, onLoad }) {
 
     return (
         <section>
-             <span style={{ fontSize: '0.8em', color: '#888' }}>Sticky notes</span>
+            <span style={{ fontSize: '0.8em', color: '#888' }}>Sticky notes</span>
             <div className="note-list pinned">
                 {renderNotes(note => note.isPinned === true)}
             </div>

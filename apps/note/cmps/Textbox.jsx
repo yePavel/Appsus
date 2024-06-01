@@ -7,7 +7,9 @@ export function Textbox({ handleChange, name, txt }) {
     }
 
     return (
-        <textarea
+        
+        <textarea 
+           className='note-text'
             name={name}
             style={{
                 width: '100%',

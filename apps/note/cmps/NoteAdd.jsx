@@ -1,49 +1,51 @@
-const { useState } = React
+const { useState, useEffect} = React
+const { useNavigate } = ReactRouter
+
 
 import { noteService } from './../services/note.service.js'
 import { NoteEditor } from './NoteEditor.jsx'
 
-export function NoteAdd({ onLoad }) {
-    const [isEditing, setIsEditing] = useState(false)
-    const [note, setNote] = useState(noteService.getEmptyNote())
+export function NoteAdd({ onLoad,setIsEditing,isEditing}) {
 
-    function handleNewNoteClick(event){
+    const [note, setNote] = useState(noteService.getEmptyNote())
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        console.log('isEditing changed:', isEditing)
+    }, [isEditing])
+
+     function handleNewNoteClick(event){
         event.stopPropagation()
-        event.preventDefault()
-        console.log('isEditing before',isEditing)
         setIsEditing(!isEditing)
-        console.log('isEditing after',isEditing)
     }
 
     function onSaveNote() {
-        if (note.info.txt === '') return; 
+        if (note.info.txt === '') return
 
          noteService.saveNewNote(note)
             .then(() => {
                 setNote(noteService.getEmptyNote())
-            
+                setIsEditing(false)
             })
             .catch(() => {
                 alert('Could not save the note');
             })
             .finally(() => {
-                
-                setIsEditing(false)
                 onLoad()
-
-
+                navigate('/note')
             })
     }
 
-    return ( <section>
+  
 
-        {isEditing ? (
-            <NoteEditor  onSaveNote={onSaveNote} setNote={setNote} note={note}/>
-        ) : (
-        <div className=".note-box  new-note" onClick={(event) =>handleNewNoteClick(event)}>
-           new note...
-         </div> 
-        )}
+    return ( 
+        <section>
+            {isEditing && <NoteEditor onSaveNote={onSaveNote} setNote={setNote} note={note} />}
+            {!isEditing && (
+                <div className="note-box new-note" onClick={handleNewNoteClick}>
+                    new note...
+                </div>
+            )}
         </section>
 
     )

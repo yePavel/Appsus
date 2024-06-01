@@ -130,6 +130,138 @@ function DynamicCmp(props) {
 }
 
 
+export function NoteIndex() {
+    const params = useParams()
+    const navigate = useNavigate()
+    const [notes, setNotes] = useState([])
+    const [isNavOpen, setIsNavOpen] = useState(false)
+    const [isSearching, setIsSearching] = useState(false)
+    const [isClickLink, setIsClickLink] = useState(false)
+    const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
+    const [isEditing, setIsEditing] = useState(false)
+
+
+
+    console.log('params', params)
+    useEffect(() => {
+        if (params.noteId === '') {
+            setIsSearching(false);
+            setIsClickLink(false);
+        } else if (params.noteId === 'search' || params.noteId === 'trash') {
+            if (params.noteId === 'search') {
+                setIsSearching(true);
+                setIsClickLink(false);
+            } else if (params.noteId === 'trash') {
+                setIsSearching(false);
+                setIsClickLink(true);
+            }
+        } else {
+            setIsSearching(false);
+            setIsClickLink(false);
+        }
+    }, [params.noteId]);
+
+    useEffect(() => {
+        loadNotes(filterBy)
+    }, [filterBy])
+
+    function loadNotes() {
+        noteService.query(filterBy)
+            .then(notes => {
+                setNotes(notes)
+            })
+            .catch(err => console.error('Error fetching notes:', err))
+    }
+
+
+    function moveNote(noteId) {
+        noteService.moveToTrash(noteId)
+            .then(() => {
+                setNotes(prevNots => prevNots.filter(note => note.id != noteId))
+                // showSuccessMsg(`Node removed successfully!`)
+            })
+            .catch(err => {
+                console.log('err:', err)
+                // showErrorMsg('There was a problem')
+            })
+    }
+
+
+    function onSetFilterBy(newFilter) {
+        setFilterBy({ ...newFilter })
+    }
+
+    function onActiveLink(link) {
+  
+        console.log('link', link)
+        navigate(`/note/${link}`)
+    }
+
+
+
+    return (
+        <section className="note-index">
+
+            {isNavOpen && <NoteNavBar isNavOpen={isNavOpen} onActiveLink={onActiveLink} />}
+            <NoteHeader filterBy={filterBy} onFilter={onSetFilterBy} onLoad={loadNotes} isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+
+            <div className={`note-content ${isNavOpen ? 'content-shifted' : ''} `}>
+                {!isClickLink && !isSearching && <NoteAdd onLoad={loadNotes} setIsEditing={setIsEditing} isEditing={isEditing} />}
+                {!isClickLink && <NoteList notes={notes} onMoveTrash={moveNote} onLoad={loadNotes} />}
+                {isClickLink && <NoteTrash onLoad={loadNotes} />}
+            </div>
+
+        </section>
+    )
+}
+
+
+
+
+
+
+
+
+export function NoteNavBar({ isNavOpen, onActiveLink}) {
+    const navigate = useNavigate()
+    const [activeLink, setActiveLink] = useState(null);
+
+    function handleLinkClick(link) {
+        event.stopPropagation()
+        setActiveLink(link)
+
+        if(link !== 'note'){
+            onActiveLink(link)
+        }else{
+            navigate(`/note`)
+        }
+
+    }
+
+    return (
+        <div className={`side-nav ${isNavOpen ? 'open' : ''}`}>
+            <button
+                className={`nav-link ${activeLink === 'note' ? 'active' : ''}`}
+                onClick={() => handleLinkClick('note')}
+            >
+                <span className="material-icons">note</span>
+                   Notes
+            </button>
+
+            <button
+                className={`nav-link ${activeLink === 'trash' ? 'active' : ''}`}
+                onClick={() => handleLinkClick('trash')}
+            >
+                <span className="material-icons">delete</span>
+                  Trash
+            </button>
+        </div>
+
+
+    )
+}
+
+
 
 // .note-add-txt {
 //     display: flex;

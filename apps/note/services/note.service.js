@@ -38,7 +38,6 @@ function query(filterBy = {}) {
 function get(noteId, storage = NOTE_KEY) {
     return asyncStorageService.get(storage, noteId)
         .then(note => {
-            console.log('note get', note)
             return note
         })
 }
@@ -87,7 +86,7 @@ function getEmptyNote(title = '', txt = '') {
         },
         info: {
             title,
-            txt
+            txt,
         }
     }
 }
