@@ -24,15 +24,15 @@
 
 .mail-preview p:last-child {
     justify-self: end;
-    padding-inline-end: 30px;
+    padding-inline-end: 20%;
 }
 
 .email-actions {
+    display: none;
     position: absolute;
     right: 0;
     gap: 3px;
     bottom: -3px;
-    display: none;
 }
 
 .email-actions button {
@@ -45,7 +45,6 @@
     width: 20px;
     border-radius: 30px;
     padding: 5px;
-    margin-inline-start: 20px;
 }
 
 .email-actions .icon:hover {
