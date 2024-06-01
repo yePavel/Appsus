@@ -38,7 +38,7 @@ export function NoteHeader({ filterBy, onFilter, onLoad, isNavOpen, setIsNavOpen
         </div>
 
         <div className="header-title" >
-            <img src="https://img.icons8.com/?size=100&id=30655&format=png&color=000000" alt="Google Keep Logo" className="keep-icon" />
+            <img src="./assets/img/mail-icons/keeps.png" alt="Google Keep Logo" className="keep-icon" />
             <h1 onClick={() => navigate(`/note`)} className="title-text">Keep</h1>
         </div>
 
