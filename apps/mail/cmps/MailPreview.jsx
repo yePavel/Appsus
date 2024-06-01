@@ -4,7 +4,7 @@ const { Link } = ReactRouterDOM
 import { eMailService } from '../services/emailService.js'
 import { utilService } from '../../../services/util.service.js'
 
-export function MailPreview({ mail, removeEmail, filterBy }) {
+export function MailPreview({ mail, removeEmail, filterBy, toggleCompose }) {
     const [currMail, setCurrMail] = useState(mail)
 
     function onSetIsRead() {
@@ -46,6 +46,11 @@ export function MailPreview({ mail, removeEmail, filterBy }) {
             <div className='email-actions'>
                 <button onClick={(ev) => removeEmail(currMail.id, ev)}>
                     <img className='icon' src="./assets/img/mail-icons/trash.png" alt="" />
+                </button>
+                <button onClick={() => toggleCompose(currMail)}>
+                    <img src="https://img.icons8.com/?size=100&id=30655&format=png&color=000000"
+                        alt="Google Keep Logo"
+                        className="icon" />
                 </button>
             </div>
         </div>

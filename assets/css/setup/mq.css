@@ -60,7 +60,7 @@
         position: fixed;
         z-index: 9;
         left: 0;
-        top: 75px;
+        top: 0;
         width: 500px;
         height: 100vh;
         background-color: rgba(212, 212, 212, 0.336);
@@ -78,6 +78,8 @@
         min-width: 300px;
     }
 
-
+    .email-actions {
+        display: block;
+    }
 
 }

@@ -21,6 +21,8 @@ export function NoteIndex() {
     const [isSearching, setIsSearching] = useState(false)
     const [isClickLink, setIsClickLink] = useState(false)
     const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
+    const [mobileMenu, setMobileMenu] = useState(true)
+
 
     useEffect(() => {
         if (params.noteId === 'search' || params.noteId === 'trash') {
@@ -68,17 +70,17 @@ export function NoteIndex() {
         navigate(`/note/${link}`)
     }
 
-
     return (
         <section className="note-index">
+
+            {isNavOpen && <NoteNavBar isNavOpen={isNavOpen} onActiveLink={onActiveLink} />}
             <NoteHeader filterBy={filterBy} onFilter={onSetFilterBy} onLoad={loadNotes} isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
             <div className={`note-content ${isNavOpen ? 'content-shifted' : ''} `}>
                 {!isClickLink && !isSearching && <NoteAdd onLoad={loadNotes} />}
                 {!isClickLink && <NoteList notes={notes} onMoveTrash={moveNote} onLoad={loadNotes} />}
                 {isClickLink && <NoteTrash onLoad={loadNotes} />}
             </div>
-            {isNavOpen && <NoteNavBar isNavOpen={isNavOpen} onActiveLink={onActiveLink} />}
-           
+
         </section>
     )
 }
