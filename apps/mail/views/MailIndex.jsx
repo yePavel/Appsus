@@ -62,7 +62,14 @@ export function MailIndex() {
         setFilterBy({ ...newFilter })
     }
 
+    function toggleMenu() {
+        setMobileMenu(prev => !prev)
+    }
+
+    const screenStyle = mobileMenu ? 'main-screen' : ''
+
     return <div className='emails-container'>
+        <div className={`${screenStyle}`} onClick={() => toggleMenu()}></div>
         <img className='nav-main-icon' src="./assets/img/mail-icons/gmail-icon.png" alt="gmail-icon" />
         <img className='menu-icon' src="./assets/img/mail-icons/menu.png" alt="menu-icon" onClick={() => toggleMenu()} />
 
