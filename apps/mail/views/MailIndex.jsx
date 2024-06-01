@@ -13,6 +13,7 @@ export function MailIndex() {
     const [emails, setEmails] = useState([])
     const [emailsCounter, setEmailsCounter] = useState(0)
     const [composeFlag, setComposeFlag] = useState(false)
+    const [keepEmail, setKeepEmail] = useState({})
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(eMailService.getFilterFromSearchParams(searchParams))
     const [mobileMenu, setMobileMenu] = useState(false)
@@ -38,7 +39,8 @@ export function MailIndex() {
             })
     }
 
-    function onToggleCompose() {
+    function onToggleCompose(email = {}) {
+        if (email) setKeepEmail(prevEmail => prevEmail = email)
         setComposeFlag(prevCompose => !prevCompose)
     }
 
@@ -82,10 +84,12 @@ export function MailIndex() {
         {!params.emailId &&
             <table>
                 {emails.length > 0 && <MailList
-                    emails={emails} removeEmail={onRemoveEmail} filterBy={filterBy} />}
+                    emails={emails} removeEmail={onRemoveEmail}
+                    filterBy={filterBy}
+                    toggleCompose={onToggleCompose} />}
             </table>}
 
-        {composeFlag && <EmailCompose toggleCompose={onToggleCompose} saveSentEmail={onSaveSentEmail} />}
+        {composeFlag && <EmailCompose onKeepEmail={keepEmail} toggleCompose={onToggleCompose} saveSentEmail={onSaveSentEmail} />}
 
     </div>
 }
